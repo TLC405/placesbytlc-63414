@@ -106,20 +106,31 @@ export default function Landing() {
           </div>
         </header>
 
-        {/* Auth Terminal */}
-        <Card className="max-w-2xl mx-auto mb-12 bg-black/80 backdrop-blur-xl border-2 border-pink-500/50 shadow-[0_0_50px_rgba(255,16,240,0.4)]">
+
+        {/* Auth Terminal - Integrated into design */}
+        <Card className="max-w-2xl mx-auto mb-16 bg-black/80 backdrop-blur-xl border-2 border-pink-500/50 shadow-[0_0_50px_rgba(255,16,240,0.4)] relative overflow-hidden">
+          {/* Terminal header bar */}
+          <div className="bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 px-6 py-3 border-b border-pink-500/30 flex items-center gap-3">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(255,16,240,0.8)]" />
+              <div className="w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(159,0,255,0.8)]" />
+              <div className="w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
+            </div>
+            <p className="text-pink-300 font-mono text-sm flex-1">&gt; AUTH_TERMINAL.exe</p>
+          </div>
+
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="w-full bg-black/60 border-b-2 border-pink-500/30 rounded-none">
+            <TabsList className="w-full bg-black/60 border-b-2 border-pink-500/30 rounded-none p-0">
               <TabsTrigger 
                 value="signin" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-purple-500/20 data-[state=active]:text-pink-300 font-mono uppercase tracking-wider"
+                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-purple-500/20 data-[state=active]:text-pink-300 font-mono uppercase tracking-wider py-4 border-r border-pink-500/20"
               >
                 <LogIn className="w-4 h-4 mr-2" />
                 SIGN_IN
               </TabsTrigger>
               <TabsTrigger 
                 value="signup" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-cyan-300 font-mono uppercase tracking-wider"
+                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-cyan-300 font-mono uppercase tracking-wider py-4"
               >
                 <UserPlus className="w-4 h-4 mr-2" />
                 SIGN_UP
@@ -127,13 +138,14 @@ export default function Landing() {
             </TabsList>
 
             <TabsContent value="signin" className="p-8 space-y-6">
-              <div className="text-center mb-4">
-                <p className="text-pink-300 font-mono text-sm">&gt; AUTHENTICATE_USER</p>
+              <div className="text-center mb-6 space-y-2">
+                <p className="text-pink-300 font-mono text-sm animate-pulse">&gt; AUTHENTICATE_USER</p>
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
               </div>
               <form onSubmit={handleSignIn} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider">
-                    &gt; EMAIL_ADDRESS
+                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-pink-500">&gt;</span> EMAIL_ADDRESS
                   </label>
                   <Input
                     type="email"
@@ -141,12 +153,12 @@ export default function Landing() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="user@tlc.system"
                     required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)]"
+                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono placeholder:text-pink-500/30 focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)] transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider">
-                    &gt; PASSWORD
+                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-pink-500">&gt;</span> PASSWORD
                   </label>
                   <Input
                     type="password"
@@ -154,27 +166,35 @@ export default function Landing() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)]"
+                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono placeholder:text-pink-500/30 focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)] transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(255,16,240,0.5)] hover:shadow-[0_0_40px_rgba(255,16,240,0.7)] transition-all uppercase tracking-wider"
+                  className="w-full h-14 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(255,16,240,0.5)] hover:shadow-[0_0_40px_rgba(255,16,240,0.7)] transition-all uppercase tracking-wider border-2 border-pink-400/50"
                 >
-                  {isLoading ? "AUTHENTICATING..." : <><Zap className="w-5 h-5 mr-2" />ACCESS_SYSTEM</>}
+                  {isLoading ? (
+                    <span className="animate-pulse">AUTHENTICATING...</span>
+                  ) : (
+                    <>
+                      <Zap className="w-5 h-5 mr-2" />
+                      ACCESS_SYSTEM
+                    </>
+                  )}
                 </Button>
               </form>
             </TabsContent>
 
             <TabsContent value="signup" className="p-8 space-y-6">
-              <div className="text-center mb-4">
-                <p className="text-cyan-300 font-mono text-sm">&gt; CREATE_NEW_USER</p>
+              <div className="text-center mb-6 space-y-2">
+                <p className="text-cyan-300 font-mono text-sm animate-pulse">&gt; CREATE_NEW_USER</p>
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
               </div>
               <form onSubmit={handleSignUp} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider">
-                    &gt; EMAIL_ADDRESS
+                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-cyan-500">&gt;</span> EMAIL_ADDRESS
                   </label>
                   <Input
                     type="email"
@@ -182,12 +202,12 @@ export default function Landing() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="newuser@tlc.system"
                     required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono placeholder:text-cyan-500/30 focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider">
-                    &gt; PASSWORD
+                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-cyan-500">&gt;</span> PASSWORD
                   </label>
                   <Input
                     type="password"
@@ -195,15 +215,22 @@ export default function Landing() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono placeholder:text-cyan-500/30 focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(0,240,255,0.5)] hover:shadow-[0_0_40px_rgba(0,240,255,0.7)] transition-all uppercase tracking-wider"
+                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(0,240,255,0.5)] hover:shadow-[0_0_40px_rgba(0,240,255,0.7)] transition-all uppercase tracking-wider border-2 border-cyan-400/50"
                 >
-                  {isLoading ? "CREATING_ACCOUNT..." : <><UserPlus className="w-5 h-5 mr-2" />REGISTER_USER</>}
+                  {isLoading ? (
+                    <span className="animate-pulse">CREATING_ACCOUNT...</span>
+                  ) : (
+                    <>
+                      <UserPlus className="w-5 h-5 mr-2" />
+                      REGISTER_USER
+                    </>
+                  )}
                 </Button>
               </form>
             </TabsContent>
