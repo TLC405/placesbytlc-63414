@@ -1,11 +1,14 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Upload, Sparkles, Download, RefreshCw, Heart } from "lucide-react";
+import { Upload, Sparkles, Download, RefreshCw, Heart, Home } from "lucide-react";
 import { RoleGuard } from "@/components/RoleGuard";
+import { ThemeSelector } from "@/components/ThemeSelector";
+import { DarkModeToggle } from "@/components/DarkModeToggle";
 
 export default function CartoonifierNew() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
@@ -98,7 +101,23 @@ export default function CartoonifierNew() {
 
   return (
     <RoleGuard allowedRoles={['admin','alpha','beta','delta','moderator']} featureName="Cartoonifier">
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-rose-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-rose-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
+      {/* Header Navigation */}
+      <header className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-md border-b border-pink-200/50 dark:border-pink-500/20">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Home className="w-5 h-5 text-primary" />
+            <span className="font-semibold text-sm">Home</span>
+          </Link>
+          
+          <div className="flex items-center gap-2">
+            <ThemeSelector />
+            <DarkModeToggle />
+          </div>
+        </div>
+      </header>
+
+      <div className="py-8 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header with Cupid Theme */}
         <div className="text-center space-y-3">
@@ -244,6 +263,7 @@ export default function CartoonifierNew() {
           </div>
         </div>
       </div>
+    </div>
     </RoleGuard>
   );
 }

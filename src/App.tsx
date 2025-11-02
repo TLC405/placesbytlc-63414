@@ -9,6 +9,8 @@ import { DetailedCupid } from "@/components/DetailedCupid";
 import { FloatingEmoji } from "@/components/FloatingEmoji";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
+import CompactHome from "./pages/CompactHome";
 import HackerHome from "./pages/HackerHome";
 import NotFound from "./pages/NotFound";
 
@@ -53,25 +55,32 @@ const AppRoutes = () => {
       </div>
     }>
       <Routes>
+        {/* Public Routes - No Login Required */}
+        <Route path="/" element={<CompactHome />} />
+        <Route path="/places" element={<HackerHome />} />
+        <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/hacker" element={<HackerScreen />} />
-        <Route path="/" element={<ProtectedRoute><HackerHome /></ProtectedRoute>} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/quizzes" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
-        <Route path="/quiz/love" element={<ProtectedRoute><QuizLove /></ProtectedRoute>} />
-        <Route path="/quiz/mbti" element={<ProtectedRoute><QuizMBTI /></ProtectedRoute>} />
-        <Route path="/quiz/relationship-style" element={<ProtectedRoute><QuizRelationshipStyle /></ProtectedRoute>} />
-        <Route path="/period-tracker" element={<ProtectedRoute><PeriodTracker /></ProtectedRoute>} />
         <Route path="/code" element={<CodeViewer />} />
-        <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
         <Route path="/tester" element={<TesterDashboard />} />
-        <Route path="/ai-recommender" element={<ProtectedRoute><AIRecommender /></ProtectedRoute>} />
-        <Route path="/couple-mode" element={<ProtectedRoute><CoupleMode /></ProtectedRoute>} />
-        <Route path="/gamification" element={<ProtectedRoute><Gamification /></ProtectedRoute>} />
-        <Route path="/okc-legend" element={<ProtectedRoute><OKCLegendForge /></ProtectedRoute>} />
-        <Route path="/boo-mode" element={<ProtectedRoute><ComingSoon /></ProtectedRoute>} />
-        <Route path="/coming-soon" element={<ProtectedRoute><ComingSoon /></ProtectedRoute>} />
-        <Route path="/cartoonifier" element={<ProtectedRoute><CartoonifierNew /></ProtectedRoute>} />
+        
+        {/* Admin-Only Routes with Red Shader Overlay */}
+        <Route path="/quizzes" element={<AdminOnlyOverlay><Quizzes /></AdminOnlyOverlay>} />
+        <Route path="/quiz/love" element={<AdminOnlyOverlay><QuizLove /></AdminOnlyOverlay>} />
+        <Route path="/quiz/mbti" element={<AdminOnlyOverlay><QuizMBTI /></AdminOnlyOverlay>} />
+        <Route path="/quiz/relationship-style" element={<AdminOnlyOverlay><QuizRelationshipStyle /></AdminOnlyOverlay>} />
+        <Route path="/period-tracker" element={<AdminOnlyOverlay><PeriodTracker /></AdminOnlyOverlay>} />
+        <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
+        <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
+        <Route path="/gamification" element={<AdminOnlyOverlay><Gamification /></AdminOnlyOverlay>} />
+        <Route path="/okc-legend" element={<AdminOnlyOverlay><OKCLegendForge /></AdminOnlyOverlay>} />
+        <Route path="/boo-mode" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
+        <Route path="/coming-soon" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
+        
+        {/* Super Admin Route - Requires Admin Auth */}
+        <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
@@ -93,9 +102,7 @@ const App = () => {
                   <AuthRedirect />
                   <DetailedCupid />
                   <FloatingEmoji />
-                  <main className="max-w-7xl mx-auto px-4 py-6">
-                    <AppRoutes />
-                  </main>
+                  <AppRoutes />
                 </BrowserRouter>
               </TooltipProvider>
             </AuthProvider>

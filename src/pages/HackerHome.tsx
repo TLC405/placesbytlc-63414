@@ -17,8 +17,11 @@ import {
   Star,
   Crown,
   Activity,
+  Home,
 } from "lucide-react";
 import { useDevMode } from "@/contexts/DevModeContext";
+import { ThemeSelector } from "@/components/ThemeSelector";
+import { DarkModeToggle } from "@/components/DarkModeToggle";
 
 export default function HackerHome() {
   const { isDevMode } = useDevMode();
@@ -122,6 +125,21 @@ export default function HackerHome() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-rose-100 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20 relative overflow-hidden">
+      {/* Header Navigation */}
+      <header className="relative z-20 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md border-b border-pink-200/50 dark:border-pink-500/20">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Home className="w-5 h-5 text-primary" />
+            <span className="font-semibold text-sm">Home</span>
+          </Link>
+          
+          <div className="flex items-center gap-2">
+            <ThemeSelector />
+            <DarkModeToggle />
+          </div>
+        </div>
+      </header>
+
       {/* Floating Hearts Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingHearts.map((id) => (
