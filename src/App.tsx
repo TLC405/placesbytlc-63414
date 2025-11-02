@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ActivityTracker } from "@/components/ActivityTracker";
 import { DetailedCupid } from "@/components/DetailedCupid";
 import { FloatingEmoji } from "@/components/FloatingEmoji";
+import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
@@ -102,6 +103,7 @@ const App = () => {
                   <AuthRedirect />
                   <DetailedCupid />
                   <FloatingEmoji />
+                  <InAppEditor />
                   <AppRoutes />
                 </BrowserRouter>
               </TooltipProvider>
