@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export type UserRole = 'admin' | 'moderator' | 'alpha' | 'beta' | 'delta' | 'user';
+export type UserRole = 'admin' | 'moderator' | 'alpha' | 'beta' | 'delta' | 'tester' | 'user';
 
 interface UserRoleData {
   roles: UserRole[];

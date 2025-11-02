@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { useUserRole, UserRole } from "@/hooks/useUserRole";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Lock, Sparkles, Crown, Zap } from "lucide-react";
+import { Shield, Lock, Sparkles, Crown, Zap, TestTube } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface RoleGuardProps {
@@ -19,6 +19,7 @@ const roleInfo: Record<UserRole, { icon: React.ReactNode; color: string; name: s
   alpha: { icon: <Sparkles className="w-6 h-6" />, color: "text-blue-400", name: "Alpha Tester" },
   beta: { icon: <Zap className="w-6 h-6" />, color: "text-green-400", name: "Beta Tester" },
   delta: { icon: <Sparkles className="w-6 h-6" />, color: "text-cyan-400", name: "Delta Tester" },
+  tester: { icon: <TestTube className="w-6 h-6" />, color: "text-pink-400", name: "Tester" },
   user: { icon: <Shield className="w-6 h-6" />, color: "text-gray-400", name: "User" },
 };
 

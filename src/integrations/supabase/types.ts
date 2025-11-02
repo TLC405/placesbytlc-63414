@@ -727,6 +727,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_tester_role: { Args: { user_email: string }; Returns: undefined }
       check_rate_limit: {
         Args: { _key: string; _max_requests: number; _window_minutes: number }
         Returns: boolean
@@ -741,7 +742,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "moderator" | "user" | "tester"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -869,7 +870,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "user", "tester"],
     },
   },
 } as const

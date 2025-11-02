@@ -21,11 +21,12 @@ const Quizzes = lazy(() => import("./pages/Quizzes"));
 const QuizLove = lazy(() => import("./pages/QuizLove"));
 const QuizMBTI = lazy(() => import("./pages/QuizMBTI"));
 const QuizRelationshipStyle = lazy(() => import("./pages/QuizRelationshipStyle"));
+const TesterDashboard = lazy(() => import("./pages/TesterDashboard"));
+const TesterGuard = lazy(() => import("./components/TesterGuard").then(m => ({ default: m.TesterGuard })));
 const PeriodTracker = lazy(() => import("./pages/PeriodTracker"));
 const FeliciaModPanel = lazy(() => import("./components/FeliciaModPanel"));
 const CodeViewer = lazy(() => import("./pages/CodeViewer"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
-const TesterDashboard = lazy(() => import("./components/TesterDashboard"));
 const AIRecommender = lazy(() => import("./pages/AIRecommender"));
 const CoupleMode = lazy(() => import("./pages/CoupleMode"));
 const Gamification = lazy(() => import("./pages/Gamification"));
@@ -64,7 +65,7 @@ const AppRoutes = () => {
         <Route path="/hacker" element={<HackerScreen />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/code" element={<CodeViewer />} />
-        <Route path="/tester" element={<TesterDashboard />} />
+        <Route path="/tester" element={<TesterGuard><TesterDashboard /></TesterGuard>} />
         
         {/* Admin-Only Routes with Red Shader Overlay */}
         <Route path="/quizzes" element={<AdminOnlyOverlay><Quizzes /></AdminOnlyOverlay>} />

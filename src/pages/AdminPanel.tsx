@@ -311,10 +311,44 @@ const AdminPanel = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="logs" className="animate-fade-in">
+          <TabsContent value="logs" className="space-y-6 animate-fade-in">
             <Card className="glass-card border-2 border-primary/20">
               <CardHeader>
-                <CardTitle className="gradient-text">Activity Logs & History</CardTitle>
+                <CardTitle className="gradient-text flex items-center justify-between">
+                  Activity Logs & History
+                  <Button
+                    onClick={async () => {
+                      try {
+                        const { data: activities, error } = await supabase
+                          .from('user_activity_log')
+                          .select('*')
+                          .order('timestamp', { ascending: false })
+                          .limit(10);
+
+                        if (error) throw error;
+
+                        const { data, error: aiError } = await supabase.functions.invoke('ai-explain-activity', {
+                          body: { activities }
+                        });
+
+                        if (aiError) throw aiError;
+
+                        toast.success("🤖 AI Explanation Generated!", {
+                          description: data.explanation,
+                          duration: 10000,
+                        });
+                      } catch (error: any) {
+                        toast.error("Failed to explain activity: " + error.message);
+                      }
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="border-pink-500/50 text-pink-600 hover:bg-pink-500/10"
+                  >
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Ask AI to Explain
+                  </Button>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <ActivityLogViewer />

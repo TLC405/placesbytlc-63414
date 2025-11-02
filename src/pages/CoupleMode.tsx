@@ -3,17 +3,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Users, Heart, Link as LinkIcon, Calendar, Star, Brain, Sparkles } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Users, Heart, Link as LinkIcon, Calendar, Star, Brain, Sparkles, Send, Bot } from "lucide-react";
 import { toast } from "sonner";
 import { useTesterCheck } from "@/hooks/useTesterCheck";
 import { CupidTutorial } from "@/components/CupidTutorial";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+
+type Message = { role: 'user' | 'assistant'; content: string };
 
 export default function CoupleMode() {
   useTesterCheck();
   const [pairingCode, setPairingCode] = useState("");
   const [isPaired, setIsPaired] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
   const tutorialSteps = [
     "Hey there, lovebirds! 💕 Welcome to Couple Mode!",
@@ -35,6 +43,32 @@ export default function CoupleMode() {
     }
     setIsPaired(true);
     toast.success("Successfully paired! 💑");
+  };
+
+  const handleSendMessage = async () => {
+    if (!input.trim() || isAiLoading) return;
+
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput("");
+    setIsAiLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('couple-mode-chat', {
+        body: { messages: [...messages, userMessage] }
+      });
+
+      if (error) throw error;
+
+      const aiMessage: Message = { role: 'assistant', content: data.reply };
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error: any) {
+      toast.error(error.message || "Failed to get AI response");
+      // Remove user message on error
+      setMessages(prev => prev.slice(0, -1));
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   return (
@@ -144,6 +178,72 @@ export default function CoupleMode() {
                 <p className="text-sm text-muted-foreground">
                   Add memories and notes to each place you visit together
                 </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI Chat Assistant */}
+          <Card className="border-2 border-primary/30 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-950/20 dark:to-purple-950/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bot className="w-6 h-6 text-primary" />
+                AI Dating Assistant
+              </CardTitle>
+              <CardDescription>
+                Get creative date ideas and relationship advice
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ScrollArea className="h-64 w-full rounded-lg border p-4 bg-white/50 dark:bg-black/50">
+                {messages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
+                    <Sparkles className="w-12 h-12 mb-2 text-primary" />
+                    <p className="text-sm">Ask me for date ideas, relationship advice, or OKC recommendations!</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {messages.map((msg, idx) => (
+                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-[80%] rounded-lg p-3 ${
+                          msg.role === 'user' 
+                            ? 'bg-gradient-to-r from-primary to-accent text-white' 
+                            : 'bg-accent/20 text-foreground'
+                        }`}>
+                          <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                        </div>
+                      </div>
+                    ))}
+                    {isAiLoading && (
+                      <div className="flex justify-start">
+                        <div className="bg-accent/20 rounded-lg p-3">
+                          <p className="text-sm text-muted-foreground">Thinking... 💭</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </ScrollArea>
+              <div className="flex gap-2">
+                <Textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                  placeholder="Ask for date ideas, relationship advice..."
+                  className="min-h-[80px] resize-none"
+                  disabled={isAiLoading}
+                />
+                <Button
+                  onClick={handleSendMessage}
+                  disabled={!input.trim() || isAiLoading}
+                  className="h-[80px]"
+                >
+                  <Send className="w-5 h-5" />
+                </Button>
               </div>
             </CardContent>
           </Card>
