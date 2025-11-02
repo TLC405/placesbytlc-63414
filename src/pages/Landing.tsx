@@ -24,7 +24,7 @@ export default function Landing() {
       if (error) throw error;
       
       toast.success("✨ ACCESS GRANTED");
-      navigate("/");
+      navigate("/home");
     } catch (error: any) {
       toast.error(error.message || "ACCESS DENIED");
     } finally {
@@ -41,7 +41,7 @@ export default function Landing() {
         email, 
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`
+          emailRedirectTo: `${window.location.origin}/home`
         }
       });
       if (error) throw error;

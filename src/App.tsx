@@ -11,12 +11,10 @@ import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
-import CompactHome from "./pages/CompactHome";
-import HackerHome from "./pages/HackerHome";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
 // Lazy load quiz pages and special features
-const HackerScreen = lazy(() => import("./pages/HackerScreen"));
 const Quizzes = lazy(() => import("./pages/Quizzes"));
 const QuizLove = lazy(() => import("./pages/QuizLove"));
 const QuizMBTI = lazy(() => import("./pages/QuizMBTI"));
@@ -29,10 +27,8 @@ const CodeViewer = lazy(() => import("./pages/CodeViewer"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const AIRecommender = lazy(() => import("./pages/AIRecommender"));
 const CoupleMode = lazy(() => import("./pages/CoupleMode"));
-const Gamification = lazy(() => import("./pages/Gamification"));
-const OKCLegendForge = lazy(() => import("./pages/EnhancedOKCLegend"));
-const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const CartoonifierNew = lazy(() => import("./pages/CartoonifierNew"));
+const NewHome = lazy(() => import("./pages/NewHome"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Landing = lazy(() => import("./pages/Landing"));
 
@@ -57,15 +53,17 @@ const AppRoutes = () => {
       </div>
     }>
       <Routes>
-        {/* Public Routes - No Login Required */}
-        <Route path="/" element={<CompactHome />} />
-        <Route path="/places" element={<HackerHome />} />
-        <Route path="/cartoonifier" element={<CartoonifierNew />} />
+        {/* Public Routes */}
+        <Route path="/" element={<Landing />} />
         <Route path="/landing" element={<Landing />} />
-        <Route path="/hacker" element={<HackerScreen />} />
+        <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/code" element={<CodeViewer />} />
         <Route path="/tester" element={<TesterGuard><TesterDashboard /></TesterGuard>} />
+        
+        {/* Main App Routes (After Login) */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/places" element={<NewHome />} />
         
         {/* Admin-Only Routes with Red Shader Overlay */}
         <Route path="/quizzes" element={<AdminOnlyOverlay><Quizzes /></AdminOnlyOverlay>} />
@@ -75,10 +73,6 @@ const AppRoutes = () => {
         <Route path="/period-tracker" element={<AdminOnlyOverlay><PeriodTracker /></AdminOnlyOverlay>} />
         <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
         <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
-        <Route path="/gamification" element={<AdminOnlyOverlay><Gamification /></AdminOnlyOverlay>} />
-        <Route path="/okc-legend" element={<AdminOnlyOverlay><OKCLegendForge /></AdminOnlyOverlay>} />
-        <Route path="/boo-mode" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
-        <Route path="/coming-soon" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         
         {/* Super Admin Route - Requires Admin Auth */}
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
