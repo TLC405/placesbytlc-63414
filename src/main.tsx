@@ -1,3 +1,4 @@
+// Force TypeScript rebuild - types are now synced
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
