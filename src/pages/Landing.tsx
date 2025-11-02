@@ -56,96 +56,94 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-pink-900 to-cyan-900">
-      {/* Cyberpunk grid background */}
+    <div className="min-h-screen relative overflow-hidden bg-black">
+      {/* Matrix-style grid background */}
       <div 
-        className="fixed inset-0 opacity-20 pointer-events-none"
+        className="fixed inset-0 opacity-30 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(0deg, transparent 24%, rgba(255, 16, 240, 0.05) 25%, rgba(255, 16, 240, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.05) 75%, rgba(0, 240, 255, 0.05) 76%, transparent 77%, transparent),
-            linear-gradient(90deg, transparent 24%, rgba(255, 16, 240, 0.05) 25%, rgba(255, 16, 240, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.05) 75%, rgba(0, 240, 255, 0.05) 76%, transparent 77%, transparent)
+            linear-gradient(0deg, transparent 24%, rgba(255, 16, 240, 0.1) 25%, rgba(255, 16, 240, 0.1) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.1) 75%, rgba(0, 240, 255, 0.1) 76%, transparent 77%, transparent),
+            linear-gradient(90deg, transparent 24%, rgba(255, 16, 240, 0.1) 25%, rgba(255, 16, 240, 0.1) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.1) 75%, rgba(0, 240, 255, 0.1) 76%, transparent 77%, transparent)
           `,
-          backgroundSize: '50px 50px',
+          backgroundSize: '40px 40px',
         }}
       />
       
-      {/* Animated scanline */}
-      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-pink-500/10 to-transparent pointer-events-none animate-scan" />
+      {/* Multiple scanlines for terminal effect */}
+      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-pink-500/5 to-transparent pointer-events-none animate-scan" />
+      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent pointer-events-none animate-scan" style={{ animationDelay: "1.5s" }} />
 
-      {/* Neon glow accents */}
-      <div className="fixed top-0 right-0 w-96 h-96 bg-pink-500/30 rounded-full blur-[120px] pointer-events-none animate-pulse" />
-      <div className="fixed bottom-0 left-0 w-96 h-96 bg-cyan-500/30 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDelay: "1s" }} />
+      {/* Corner glows */}
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
-        {/* Header */}
-        <header className="text-center mb-16 space-y-8">
-          <div className="inline-block relative">
-            <div className="w-32 h-32 mx-auto mb-8 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-cyan-500 rounded-2xl opacity-50 blur-3xl animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-[0_0_80px_rgba(255,16,240,0.9)] glitch-text">
-                <Terminal className="w-16 h-16 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+      <div className="container mx-auto px-4 py-8 max-w-4xl relative z-10 min-h-screen flex flex-col">
+        {/* Terminal Header */}
+        <header className="mb-8 space-y-4">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-[0_0_40px_rgba(255,16,240,0.6)] animate-pulse">
+              <Terminal className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl md:text-5xl font-black font-mono text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 glitch-text">
+                PLACES_BY_TLC
+              </h1>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(0,255,0,0.8)]" />
+                <p className="text-green-400 font-mono text-xs tracking-widest">SYSTEM_ONLINE</p>
               </div>
             </div>
           </div>
-
-          <div className="space-y-6">
-            <h1 className="text-7xl md:text-8xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 glitch-text animate-glow">
-              PLACES_BY_TLC
-            </h1>
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-pink-500 to-transparent animate-pulse" />
-              <p className="text-cyan-300 font-mono text-xl tracking-widest flex items-center gap-2">
-                <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
-                SYSTEM_ONLINE
-              </p>
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent animate-pulse" />
-            </div>
-            <p className="text-pink-200/80 text-lg max-w-2xl mx-auto font-mono">
-              &gt; date_discovery_protocol.exe
-            </p>
+          
+          {/* Terminal command line */}
+          <div className="font-mono text-sm space-y-1">
+            <p className="text-pink-400">&gt; Initializing TLC Authentication Protocol...</p>
+            <p className="text-cyan-400">&gt; Loading date_discovery_system.exe</p>
+            <p className="text-purple-400">&gt; Awaiting user credentials...</p>
           </div>
         </header>
 
 
-        {/* Auth Terminal - Integrated into design */}
-        <Card className="max-w-2xl mx-auto mb-16 bg-black/80 backdrop-blur-xl border-2 border-pink-500/50 shadow-[0_0_50px_rgba(255,16,240,0.4)] relative overflow-hidden">
+        {/* Auth Terminal Console */}
+        <Card className="flex-1 bg-black/90 backdrop-blur-sm border-2 border-pink-500/30 shadow-[0_0_60px_rgba(255,16,240,0.3)] relative overflow-hidden">
           {/* Terminal header bar */}
-          <div className="bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 px-6 py-3 border-b border-pink-500/30 flex items-center gap-3">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(255,16,240,0.8)]" />
-              <div className="w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(159,0,255,0.8)]" />
-              <div className="w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
+          <div className="bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-cyan-500/10 px-4 py-2 border-b border-pink-500/20 flex items-center gap-3">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-pink-500/80 shadow-[0_0_8px_rgba(255,16,240,0.6)]" />
+              <div className="w-3 h-3 rounded-full bg-purple-500/80 shadow-[0_0_8px_rgba(159,0,255,0.6)]" />
+              <div className="w-3 h-3 rounded-full bg-cyan-500/80 shadow-[0_0_8px_rgba(0,240,255,0.6)]" />
             </div>
-            <p className="text-pink-300 font-mono text-sm flex-1">&gt; AUTH_TERMINAL.exe</p>
+            <p className="text-pink-300/80 font-mono text-xs flex-1">~/AUTH_TERMINAL.exe</p>
+            <p className="text-cyan-300/60 font-mono text-xs">v2.5.1</p>
           </div>
 
-          <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="w-full bg-black/60 border-b-2 border-pink-500/30 rounded-none p-0">
+          <Tabs defaultValue="signin" className="w-full h-full flex flex-col">
+            <TabsList className="w-full bg-black/40 border-b border-pink-500/20 rounded-none p-0 h-auto">
               <TabsTrigger 
                 value="signin" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-purple-500/20 data-[state=active]:text-pink-300 font-mono uppercase tracking-wider py-4 border-r border-pink-500/20"
+                className="flex-1 data-[state=active]:bg-pink-500/10 data-[state=active]:text-pink-300 data-[state=active]:border-b-2 data-[state=active]:border-pink-500 text-pink-300/60 font-mono text-xs uppercase tracking-wider py-3 transition-all"
               >
-                <LogIn className="w-4 h-4 mr-2" />
-                SIGN_IN
+                <LogIn className="w-3 h-3 mr-2" />
+                [SIGN_IN]
               </TabsTrigger>
               <TabsTrigger 
                 value="signup" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-cyan-300 font-mono uppercase tracking-wider py-4"
+                className="flex-1 data-[state=active]:bg-cyan-500/10 data-[state=active]:text-cyan-300 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500 text-cyan-300/60 font-mono text-xs uppercase tracking-wider py-3 transition-all"
               >
-                <UserPlus className="w-4 h-4 mr-2" />
-                SIGN_UP
+                <UserPlus className="w-3 h-3 mr-2" />
+                [SIGN_UP]
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="signin" className="p-8 space-y-6">
-              <div className="text-center mb-6 space-y-2">
-                <p className="text-pink-300 font-mono text-sm animate-pulse">&gt; AUTHENTICATE_USER</p>
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
+            <TabsContent value="signin" className="p-6 space-y-6 flex-1">
+              <div className="space-y-3 mb-6">
+                <p className="text-pink-400 font-mono text-xs">&gt; Authenticating user session...</p>
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-pink-500/30 to-transparent" />
               </div>
-              <form onSubmit={handleSignIn} className="space-y-6">
+              <form onSubmit={handleSignIn} className="space-y-5">
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-pink-500">&gt;</span> EMAIL_ADDRESS
+                  <label className="text-xs font-mono text-cyan-300/80 tracking-wider flex items-center gap-2">
+                    <span className="text-pink-500">$</span> EMAIL
                   </label>
                   <Input
                     type="email"
@@ -153,12 +151,12 @@ export default function Landing() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="user@tlc.system"
                     required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono placeholder:text-pink-500/30 focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)] transition-all"
+                    className="h-11 bg-black/50 border border-pink-500/30 text-pink-200 font-mono text-sm placeholder:text-pink-500/20 focus:border-pink-400 focus:ring-1 focus:ring-pink-400/50 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-pink-500">&gt;</span> PASSWORD
+                  <label className="text-xs font-mono text-cyan-300/80 tracking-wider flex items-center gap-2">
+                    <span className="text-pink-500">$</span> PASSWORD
                   </label>
                   <Input
                     type="password"
@@ -166,35 +164,35 @@ export default function Landing() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono placeholder:text-pink-500/30 focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)] transition-all"
+                    className="h-11 bg-black/50 border border-pink-500/30 text-pink-200 font-mono text-sm placeholder:text-pink-500/20 focus:border-pink-400 focus:ring-1 focus:ring-pink-400/50 transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(255,16,240,0.5)] hover:shadow-[0_0_40px_rgba(255,16,240,0.7)] transition-all uppercase tracking-wider border-2 border-pink-400/50"
+                  className="w-full h-12 bg-gradient-to-r from-pink-500/80 to-purple-500/80 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-bold text-sm shadow-[0_0_20px_rgba(255,16,240,0.4)] hover:shadow-[0_0_30px_rgba(255,16,240,0.6)] transition-all uppercase tracking-widest border border-pink-400/30"
                 >
                   {isLoading ? (
-                    <span className="animate-pulse">AUTHENTICATING...</span>
+                    <span className="animate-pulse">&gt; AUTHENTICATING...</span>
                   ) : (
                     <>
-                      <Zap className="w-5 h-5 mr-2" />
-                      ACCESS_SYSTEM
+                      <Zap className="w-4 h-4 mr-2" />
+                      &gt; ACCESS_SYSTEM
                     </>
                   )}
                 </Button>
               </form>
             </TabsContent>
 
-            <TabsContent value="signup" className="p-8 space-y-6">
-              <div className="text-center mb-6 space-y-2">
-                <p className="text-cyan-300 font-mono text-sm animate-pulse">&gt; CREATE_NEW_USER</p>
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+            <TabsContent value="signup" className="p-6 space-y-6 flex-1">
+              <div className="space-y-3 mb-6">
+                <p className="text-cyan-400 font-mono text-xs">&gt; Creating new user account...</p>
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
               </div>
-              <form onSubmit={handleSignUp} className="space-y-6">
+              <form onSubmit={handleSignUp} className="space-y-5">
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-cyan-500">&gt;</span> EMAIL_ADDRESS
+                  <label className="text-xs font-mono text-pink-300/80 tracking-wider flex items-center gap-2">
+                    <span className="text-cyan-500">$</span> EMAIL
                   </label>
                   <Input
                     type="email"
@@ -202,12 +200,12 @@ export default function Landing() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="newuser@tlc.system"
                     required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono placeholder:text-cyan-500/30 focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all"
+                    className="h-11 bg-black/50 border border-cyan-500/30 text-cyan-200 font-mono text-sm placeholder:text-cyan-500/20 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-cyan-500">&gt;</span> PASSWORD
+                  <label className="text-xs font-mono text-pink-300/80 tracking-wider flex items-center gap-2">
+                    <span className="text-cyan-500">$</span> PASSWORD
                   </label>
                   <Input
                     type="password"
@@ -215,20 +213,20 @@ export default function Landing() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono placeholder:text-cyan-500/30 focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all"
+                    className="h-11 bg-black/50 border border-cyan-500/30 text-cyan-200 font-mono text-sm placeholder:text-cyan-500/20 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(0,240,255,0.5)] hover:shadow-[0_0_40px_rgba(0,240,255,0.7)] transition-all uppercase tracking-wider border-2 border-cyan-400/50"
+                  className="w-full h-12 bg-gradient-to-r from-cyan-500/80 to-blue-500/80 hover:from-cyan-500 hover:to-blue-500 text-white font-mono font-bold text-sm shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all uppercase tracking-widest border border-cyan-400/30"
                 >
                   {isLoading ? (
-                    <span className="animate-pulse">CREATING_ACCOUNT...</span>
+                    <span className="animate-pulse">&gt; CREATING_ACCOUNT...</span>
                   ) : (
                     <>
-                      <UserPlus className="w-5 h-5 mr-2" />
-                      REGISTER_USER
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      &gt; REGISTER_USER
                     </>
                   )}
                 </Button>
@@ -237,56 +235,17 @@ export default function Landing() {
           </Tabs>
         </Card>
 
-        {/* Feature Cards - Static Preview */}
-        <div className="grid sm:grid-cols-2 gap-8 mb-12">
-          <Card className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-pink-500/50 hover:border-pink-400 transition-all duration-500 shadow-[0_0_30px_rgba(255,16,240,0.3)] hover:shadow-[0_0_60px_rgba(255,16,240,0.5)] hover:scale-105">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 animate-pulse" />
-            <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-[0_0_40px_rgba(255,16,240,0.7)] group-hover:scale-110 transition-transform group-hover:rotate-6">
-                <span className="text-4xl">📍</span>
-              </div>
-              <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2 font-mono glitch-text">PLACES_MODULE</h3>
-                <p className="text-pink-200/70 font-mono text-sm">&gt; discover_date_locations.exe</p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300 hover:bg-pink-500/30 transition-colors">SEARCH</span>
-                <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded text-xs font-mono text-purple-300 hover:bg-purple-500/30 transition-colors">DISCOVERY</span>
-                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300 hover:bg-pink-500/30 transition-colors">AI_POWERED</span>
-              </div>
+        {/* Footer - Terminal Status */}
+        <footer className="mt-8 pt-4 border-t border-pink-500/20 font-mono text-xs">
+          <div className="flex items-center justify-between text-pink-300/50">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                ONLINE
+              </span>
+              <span className="text-cyan-300/50">v2.5.1_HACKER</span>
             </div>
-          </Card>
-
-          <Card className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-cyan-500/50 hover:border-cyan-400 transition-all duration-500 shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_60px_rgba(0,240,255,0.5)] hover:scale-105">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 animate-pulse" style={{ animationDelay: "0.5s" }} />
-            <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-[0_0_40px_rgba(0,240,255,0.7)] group-hover:scale-110 transition-transform group-hover:rotate-6">
-                <span className="text-4xl">💝</span>
-              </div>
-              <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2 font-mono glitch-text">QUIZ_ENGINE</h3>
-                <p className="text-cyan-200/70 font-mono text-sm">&gt; personality_analysis.sys</p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300 hover:bg-cyan-500/30 transition-colors">MBTI</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded text-xs font-mono text-blue-300 hover:bg-blue-500/30 transition-colors">LOVE_LANG</span>
-                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300 hover:bg-cyan-500/30 transition-colors">RELATIONSHIP</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Footer */}
-        <footer className="text-center space-y-4 font-mono">
-          <div className="flex items-center justify-center gap-4 text-sm text-pink-300/70">
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-              SYSTEM_STATUS: ONLINE
-            </span>
-            <span>•</span>
-            <span>v1.0_CYBERPUNK</span>
-            <span>•</span>
-            <span className="text-cyan-300">TLC_ARMY</span>
+            <span className="text-purple-300/50">TLC_ARMY</span>
           </div>
         </footer>
       </div>
