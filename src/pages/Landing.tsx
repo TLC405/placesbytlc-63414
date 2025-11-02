@@ -45,11 +45,11 @@ export default function Landing() {
       });
       if (error) throw error;
       
-      toast.success("✨ ACCOUNT CREATED - CHECK EMAIL");
+      toast.success("✨ ACCOUNT CREATED");
       setEmail("");
       setPassword("");
     } catch (error: any) {
-      toast.error(error.message || "REGISTRATION FAILED");
+      toast.error(error.message || "ACCESS DENIED");
     } finally {
       setIsLoading(false);
     }
@@ -81,21 +81,24 @@ export default function Landing() {
         <header className="text-center mb-16 space-y-8">
           <div className="inline-block relative">
             <div className="w-32 h-32 mx-auto mb-8 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-cyan-500 rounded-2xl opacity-50 blur-2xl animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-[0_0_60px_rgba(255,16,240,0.8)] glitch-text">
-                <Terminal className="w-16 h-16 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-cyan-500 rounded-2xl opacity-50 blur-3xl animate-pulse" />
+              <div className="relative w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-[0_0_80px_rgba(255,16,240,0.9)] glitch-text">
+                <Terminal className="w-16 h-16 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
               </div>
             </div>
           </div>
 
           <div className="space-y-6">
-            <h1 className="text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 glitch-text animate-glow">
+            <h1 className="text-7xl md:text-8xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 glitch-text animate-glow">
               PLACES_BY_TLC
             </h1>
             <div className="flex items-center justify-center gap-4">
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
-              <p className="text-cyan-300 font-mono text-xl tracking-widest">&gt; SYSTEM_ONLINE</p>
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-pink-500 to-transparent animate-pulse" />
+              <p className="text-cyan-300 font-mono text-xl tracking-widest flex items-center gap-2">
+                <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
+                SYSTEM_ONLINE
+              </p>
+              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent animate-pulse" />
             </div>
             <p className="text-pink-200/80 text-lg max-w-2xl mx-auto font-mono">
               &gt; date_discovery_protocol.exe
@@ -207,44 +210,40 @@ export default function Landing() {
           </Tabs>
         </Card>
 
-        {/* Feature Cards */}
+        {/* Feature Cards - Static Preview */}
         <div className="grid sm:grid-cols-2 gap-8 mb-12">
-          <Card
-            className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-pink-500/50 hover:border-pink-400 transition-all duration-500 cursor-pointer shadow-[0_0_30px_rgba(255,16,240,0.2)] hover:shadow-[0_0_50px_rgba(255,16,240,0.4)] hover:scale-105"
-            onClick={() => navigate("/")}
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-purple-500" />
+          <Card className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-pink-500/50 hover:border-pink-400 transition-all duration-500 shadow-[0_0_30px_rgba(255,16,240,0.3)] hover:shadow-[0_0_60px_rgba(255,16,240,0.5)] hover:scale-105">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 animate-pulse" />
             <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-[0_0_30px_rgba(255,16,240,0.6)] group-hover:scale-110 transition-transform">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-[0_0_40px_rgba(255,16,240,0.7)] group-hover:scale-110 transition-transform group-hover:rotate-6">
                 <span className="text-4xl">📍</span>
               </div>
               <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2 font-mono">PLACES_MODULE</h3>
+                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2 font-mono glitch-text">PLACES_MODULE</h3>
                 <p className="text-pink-200/70 font-mono text-sm">&gt; discover_date_locations.exe</p>
               </div>
               <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300">SEARCH</span>
-                <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded text-xs font-mono text-purple-300">DISCOVERY</span>
+                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300 hover:bg-pink-500/30 transition-colors">SEARCH</span>
+                <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded text-xs font-mono text-purple-300 hover:bg-purple-500/30 transition-colors">DISCOVERY</span>
+                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300 hover:bg-pink-500/30 transition-colors">AI_POWERED</span>
               </div>
             </div>
           </Card>
 
-          <Card
-            className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-cyan-500/50 hover:border-cyan-400 transition-all duration-500 cursor-pointer shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:shadow-[0_0_50px_rgba(0,240,255,0.4)] hover:scale-105"
-            onClick={() => navigate("/quizzes")}
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-500" />
+          <Card className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-cyan-500/50 hover:border-cyan-400 transition-all duration-500 shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_60px_rgba(0,240,255,0.5)] hover:scale-105">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 animate-pulse" style={{ animationDelay: "0.5s" }} />
             <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.6)] group-hover:scale-110 transition-transform">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-[0_0_40px_rgba(0,240,255,0.7)] group-hover:scale-110 transition-transform group-hover:rotate-6">
                 <span className="text-4xl">💝</span>
               </div>
               <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2 font-mono">QUIZ_ENGINE</h3>
+                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2 font-mono glitch-text">QUIZ_ENGINE</h3>
                 <p className="text-cyan-200/70 font-mono text-sm">&gt; personality_analysis.sys</p>
               </div>
               <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300">MBTI</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded text-xs font-mono text-blue-300">LOVE_LANG</span>
+                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300 hover:bg-cyan-500/30 transition-colors">MBTI</span>
+                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded text-xs font-mono text-blue-300 hover:bg-blue-500/30 transition-colors">LOVE_LANG</span>
+                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300 hover:bg-cyan-500/30 transition-colors">RELATIONSHIP</span>
               </div>
             </div>
           </Card>
