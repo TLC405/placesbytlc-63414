@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
 
+import romanceIcons from '@/assets/themes/romance-icons.png';
+import manmodeIcons from '@/assets/themes/manmode-icons.png';
+import cyberpunkIcons from '@/assets/themes/cyberpunk-icons.png';
+import natureIcons from '@/assets/themes/nature-icons.png';
+
 export type ThemeType = 'romance' | 'man-mode' | 'cyberpunk' | 'nature';
 
 interface ThemeConfig {
@@ -13,6 +18,15 @@ interface ThemeConfig {
     accent: string;
     background: string;
     foreground: string;
+  };
+  assets: {
+    iconSheet: string;
+    buttonStyle: 'gradient' | 'solid' | 'outlined' | 'neon';
+    cardStyle: 'glass' | 'solid' | 'bordered' | 'elevated';
+  };
+  typography: {
+    headingFont: string;
+    bodyFont: string;
   };
 }
 
@@ -27,6 +41,15 @@ const THEMES: Record<ThemeType, ThemeConfig> = {
       accent: '244 63 94',
       background: '255 242 249',
       foreground: '88 28 135',
+    },
+    assets: {
+      iconSheet: romanceIcons,
+      buttonStyle: 'gradient',
+      cardStyle: 'glass',
+    },
+    typography: {
+      headingFont: 'Playfair Display',
+      bodyFont: 'Inter',
     }
   },
   'man-mode': {
@@ -39,6 +62,15 @@ const THEMES: Record<ThemeType, ThemeConfig> = {
       accent: '249 115 22',
       background: '10 10 10',
       foreground: '34 197 94',
+    },
+    assets: {
+      iconSheet: manmodeIcons,
+      buttonStyle: 'solid',
+      cardStyle: 'bordered',
+    },
+    typography: {
+      headingFont: 'Rajdhani',
+      bodyFont: 'Roboto',
     }
   },
   cyberpunk: {
@@ -51,6 +83,15 @@ const THEMES: Record<ThemeType, ThemeConfig> = {
       accent: '168 85 247',
       background: '2 6 23',
       foreground: '6 182 212',
+    },
+    assets: {
+      iconSheet: cyberpunkIcons,
+      buttonStyle: 'neon',
+      cardStyle: 'elevated',
+    },
+    typography: {
+      headingFont: 'Orbitron',
+      bodyFont: 'Space Mono',
     }
   },
   nature: {
@@ -63,6 +104,15 @@ const THEMES: Record<ThemeType, ThemeConfig> = {
       accent: '14 165 233',
       background: '249 246 238',
       foreground: '92 64 14',
+    },
+    assets: {
+      iconSheet: natureIcons,
+      buttonStyle: 'outlined',
+      cardStyle: 'solid',
+    },
+    typography: {
+      headingFont: 'Merriweather',
+      bodyFont: 'Lato',
     }
   }
 };
@@ -96,6 +146,10 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     root.style.setProperty('--accent', config.colors.accent);
     root.style.setProperty('--background', config.colors.background);
     root.style.setProperty('--foreground', config.colors.foreground);
+    
+    // Apply typography
+    root.style.setProperty('--font-heading', config.typography.headingFont);
+    root.style.setProperty('--font-body', config.typography.bodyFont);
   };
 
   const setTheme = (theme: ThemeType) => {

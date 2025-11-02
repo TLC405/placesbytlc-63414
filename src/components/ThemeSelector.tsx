@@ -46,14 +46,21 @@ export const ThemeSelector = () => {
                 <CardDescription className="text-sm leading-relaxed">
                   {config.description}
                 </CardDescription>
-                <div className="flex gap-2 mt-3">
-                  {Object.values(config.colors).map((color, idx) => (
-                    <div
-                      key={idx}
-                      className="w-8 h-8 rounded-full border-2 border-white/20"
-                      style={{ backgroundColor: `hsl(${color})` }}
-                    />
-                  ))}
+                <div className="mt-3 space-y-2">
+                  <div className="flex gap-2">
+                    {Object.values(config.colors).map((color, idx) => (
+                      <div
+                        key={idx}
+                        className="w-8 h-8 rounded-full border-2 border-white/20"
+                        style={{ backgroundColor: `hsl(${color})` }}
+                      />
+                    ))}
+                  </div>
+                  <img 
+                    src={config.assets.iconSheet} 
+                    alt={`${config.displayName} icons`}
+                    className="w-full h-16 object-contain opacity-80"
+                  />
                 </div>
               </CardContent>
             </Card>
