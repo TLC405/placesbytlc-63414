@@ -1,10 +1,5 @@
-import { CyberpunkLoadingScreen } from "./CyberpunkLoadingScreen";
+import { YouTubeLoadingScreen } from "./YouTubeLoadingScreen";
 
 export const PlacesLoadingSkeleton = () => {
-  return (
-    <CyberpunkLoadingScreen 
-      text="LOADING PLACES" 
-      subtext="Scanning database for locations"
-    />
-  );
+  return <YouTubeLoadingScreen brandText="TLC" />;
 };
