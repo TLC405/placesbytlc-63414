@@ -19,23 +19,26 @@ export const YouTubeLoadingScreen = ({
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex items-center justify-center overflow-hidden">
-      {/* YouTube Video Background */}
+      {/* YouTube Video Background - First 10 seconds */}
       <div className="absolute inset-0">
         <iframe
-          className={`w-full h-full scale-150 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
-          title="Loading Screen"
-          allow="autoplay; encrypted-media"
+          className={`w-full h-full transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&start=0&end=10&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+          title="TLC Loading Screen"
+          allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
           style={{
             pointerEvents: 'none',
-            border: 'none'
+            border: 'none',
+            width: '100vw',
+            height: '100vh',
+            objectFit: 'cover'
           }}
         />
       </div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      {/* Subtle Dark Overlay */}
+      <div className="absolute inset-0 bg-black/20" />
 
       {/* TLC Branding Overlay */}
       <div className="relative z-10 flex flex-col items-center justify-center space-y-8">
