@@ -25,10 +25,6 @@ const PeriodTracker = lazy(() => import("./pages/PeriodTracker"));
 const FeliciaModPanel = lazy(() => import("./components/FeliciaModPanel"));
 const CodeViewer = lazy(() => import("./pages/CodeViewer"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
-const AIRecommender = lazy(() => import("./pages/AIRecommender"));
-const CoupleMode = lazy(() => import("./pages/CoupleMode"));
-const CartoonifierNew = lazy(() => import("./pages/CartoonifierNew"));
-const NewHome = lazy(() => import("./pages/NewHome"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Landing = lazy(() => import("./pages/Landing"));
 
@@ -56,23 +52,19 @@ const AppRoutes = () => {
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/landing" element={<Landing />} />
-        <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/code" element={<CodeViewer />} />
         <Route path="/tester" element={<TesterGuard><TesterDashboard /></TesterGuard>} />
         
-        {/* Main App Routes (After Login) */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/places" element={<NewHome />} />
+        {/* Main App Route - All Features in One Hub */}
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         
-        {/* Admin-Only Routes with Red Shader Overlay */}
-        <Route path="/quizzes" element={<AdminOnlyOverlay><Quizzes /></AdminOnlyOverlay>} />
-        <Route path="/quiz/love" element={<AdminOnlyOverlay><QuizLove /></AdminOnlyOverlay>} />
-        <Route path="/quiz/mbti" element={<AdminOnlyOverlay><QuizMBTI /></AdminOnlyOverlay>} />
-        <Route path="/quiz/relationship-style" element={<AdminOnlyOverlay><QuizRelationshipStyle /></AdminOnlyOverlay>} />
-        <Route path="/period-tracker" element={<AdminOnlyOverlay><PeriodTracker /></AdminOnlyOverlay>} />
-        <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
-        <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
+        {/* Individual Feature Routes (for direct access if needed) */}
+        <Route path="/quizzes" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
+        <Route path="/quiz/love" element={<ProtectedRoute><QuizLove /></ProtectedRoute>} />
+        <Route path="/quiz/mbti" element={<ProtectedRoute><QuizMBTI /></ProtectedRoute>} />
+        <Route path="/quiz/relationship-style" element={<ProtectedRoute><QuizRelationshipStyle /></ProtectedRoute>} />
+        <Route path="/period-tracker" element={<ProtectedRoute><PeriodTracker /></ProtectedRoute>} />
         
         {/* Super Admin Route - Requires Admin Auth */}
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
