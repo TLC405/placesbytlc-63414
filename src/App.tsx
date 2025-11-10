@@ -3,31 +3,45 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ActivityTracker } from "@/components/ActivityTracker";
-import { AuthRedirect } from "@/components/AuthRedirect";
+import { DetailedCupid } from "@/components/DetailedCupid";
+import { FloatingEmoji } from "@/components/FloatingEmoji";
 import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
-import Home from "./pages/Home";
+import CompactHome from "./pages/CompactHome";
+import HackerHome from "./pages/HackerHome";
 import NotFound from "./pages/NotFound";
 
-// Lazy load pages
-const Landing = lazy(() => import("./pages/Landing"));
-const Auth = lazy(() => import("./pages/Auth"));
+// Lazy load quiz pages and special features
+const HackerScreen = lazy(() => import("./pages/HackerScreen"));
+const Quizzes = lazy(() => import("./pages/Quizzes"));
 const QuizLove = lazy(() => import("./pages/QuizLove"));
 const QuizMBTI = lazy(() => import("./pages/QuizMBTI"));
 const QuizRelationshipStyle = lazy(() => import("./pages/QuizRelationshipStyle"));
 const TesterDashboard = lazy(() => import("./pages/TesterDashboard"));
 const TesterGuard = lazy(() => import("./components/TesterGuard").then(m => ({ default: m.TesterGuard })));
+const PeriodTracker = lazy(() => import("./pages/PeriodTracker"));
+const FeliciaModPanel = lazy(() => import("./components/FeliciaModPanel"));
 const CodeViewer = lazy(() => import("./pages/CodeViewer"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const AIRecommender = lazy(() => import("./pages/AIRecommender"));
+const CoupleMode = lazy(() => import("./pages/CoupleMode"));
+const Gamification = lazy(() => import("./pages/Gamification"));
+const OKCLegendForge = lazy(() => import("./pages/EnhancedOKCLegend"));
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
+const CartoonifierNew = lazy(() => import("./pages/CartoonifierNew"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Landing = lazy(() => import("./pages/Landing"));
 
 import { useGoogleMaps } from "@/hooks/useGoogleMaps";
 import { DevModeProvider } from "@/contexts/DevModeContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { AuthRedirect } from "@/components/AuthRedirect";
 
 const queryClient = new QueryClient();
 
@@ -43,25 +57,31 @@ const AppRoutes = () => {
       </div>
     }>
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Landing />} />
+        {/* Public Routes - No Login Required */}
+        <Route path="/" element={<CompactHome />} />
+        <Route path="/places" element={<HackerHome />} />
+        <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/landing" element={<Landing />} />
+        <Route path="/hacker" element={<HackerScreen />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/code" element={<CodeViewer />} />
         <Route path="/tester" element={<TesterGuard><TesterDashboard /></TesterGuard>} />
         
-        {/* Main App Route - All Features in One Unified Hub */}
-        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        {/* Admin-Only Routes with Red Shader Overlay */}
+        <Route path="/quizzes" element={<AdminOnlyOverlay><Quizzes /></AdminOnlyOverlay>} />
+        <Route path="/quiz/love" element={<AdminOnlyOverlay><QuizLove /></AdminOnlyOverlay>} />
+        <Route path="/quiz/mbti" element={<AdminOnlyOverlay><QuizMBTI /></AdminOnlyOverlay>} />
+        <Route path="/quiz/relationship-style" element={<AdminOnlyOverlay><QuizRelationshipStyle /></AdminOnlyOverlay>} />
+        <Route path="/period-tracker" element={<AdminOnlyOverlay><PeriodTracker /></AdminOnlyOverlay>} />
+        <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
+        <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
+        <Route path="/gamification" element={<AdminOnlyOverlay><Gamification /></AdminOnlyOverlay>} />
+        <Route path="/okc-legend" element={<AdminOnlyOverlay><OKCLegendForge /></AdminOnlyOverlay>} />
+        <Route path="/boo-mode" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
+        <Route path="/coming-soon" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         
-        {/* Individual Quiz Routes (for deep links) */}
-        <Route path="/quiz/love" element={<ProtectedRoute><QuizLove /></ProtectedRoute>} />
-        <Route path="/quiz/mbti" element={<ProtectedRoute><QuizMBTI /></ProtectedRoute>} />
-        <Route path="/quiz/relationship-style" element={<ProtectedRoute><QuizRelationshipStyle /></ProtectedRoute>} />
-        
-        {/* Redirect old routes to unified hub */}
-        <Route path="/admin" element={<Navigate to="/home?tab=admin" replace />} />
-        <Route path="/quizzes" element={<Navigate to="/home?tab=quizzes" replace />} />
-        <Route path="/period-tracker" element={<Navigate to="/home?tab=period-tracker" replace />} />
+        {/* Super Admin Route - Requires Admin Auth */}
+        <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -82,6 +102,8 @@ const App = () => {
                 <BrowserRouter>
                   <ActivityTracker />
                   <AuthRedirect />
+                  <DetailedCupid />
+                  <FloatingEmoji />
                   <InAppEditor />
                   <AppRoutes />
                 </BrowserRouter>

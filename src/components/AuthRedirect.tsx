@@ -14,7 +14,7 @@ export const AuthRedirect = () => {
     }
     // If user is authenticated and on landing, redirect to home
     if (user && location.pathname === '/landing') {
-      navigate('/home', { replace: true });
+      navigate('/', { replace: true });
     }
   }, [user, location.pathname, navigate]);
 
