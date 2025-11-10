@@ -38,7 +38,6 @@ export const CodeExportSystem = () => {
       name: "Places by TLC (Search & Discovery)",
       icon: "📍",
       files: [
-        { name: "NewHome.tsx", path: "src/pages/NewHome.tsx", category: "places" },
         { name: "Home.tsx", path: "src/pages/Home.tsx", category: "places" },
         { name: "SearchBar.tsx", path: "src/components/SearchBar.tsx", category: "places" },
         { name: "FilterBar.tsx", path: "src/components/FilterBar.tsx", category: "places" },
@@ -102,17 +101,8 @@ export const CodeExportSystem = () => {
       name: "AI & Recommendations",
       icon: "✨",
       files: [
-        { name: "AIRecommender.tsx", path: "src/pages/AIRecommender.tsx", category: "ai" },
         { name: "AIRecommendations.tsx", path: "src/components/AIRecommendations.tsx", category: "ai" },
         { name: "ai-recommender (Edge Function)", path: "supabase/functions/ai-recommender/index.ts", category: "ai" },
-      ]
-    },
-    {
-      id: "couple",
-      name: "Couple Mode & Shared Features",
-      icon: "💑",
-      files: [
-        { name: "CoupleMode.tsx", path: "src/pages/CoupleMode.tsx", category: "couple" },
       ]
     },
     {
