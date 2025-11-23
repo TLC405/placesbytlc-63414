@@ -11,8 +11,7 @@ import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
-import CompactHome from "./pages/CompactHome";
-import HackerHome from "./pages/HackerHome";
+import UnifiedDashboard from "./pages/UnifiedDashboard";
 import NotFound from "./pages/NotFound";
 
 // Lazy load quiz pages and special features
@@ -57,9 +56,8 @@ const AppRoutes = () => {
       </div>
     }>
       <Routes>
-        {/* Public Routes - No Login Required */}
-        <Route path="/" element={<CompactHome />} />
-        <Route path="/places" element={<HackerHome />} />
+        {/* Unified Dashboard - All Features on One Page */}
+        <Route path="/" element={<UnifiedDashboard />} />
         <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/hacker" element={<HackerScreen />} />
