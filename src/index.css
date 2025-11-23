@@ -8,27 +8,52 @@
 
 @layer base {
   :root {
-    --background: 209 40% 96%;
-    --foreground: 222 47% 11%;
-    --card: 210 40% 98%;
-    --card-foreground: 222 47% 11%;
-    --popover: 214 31% 91%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 216 19% 26%;
-    --primary-variant: 340 75% 68%;
-    --primary-foreground: 210 19% 98%;
-    --secondary: 215 19% 34%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 215 20% 65%;
-    --muted-foreground: 222 47% 11%;
-    --accent: 210 40% 98%;
-    --accent-foreground: 215 16% 46%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 212 26% 83%;
-    --input: 212 26% 83%;
-    --ring: 216 19% 26%;
-    --radius: 0rem;
+    /* Skeuomorphic 2.0 Design System */
+    --background: 220 15% 96%;
+    --foreground: 220 10% 15%;
+    
+    /* Elevated surfaces with depth */
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 15%;
+    
+    /* Material-inspired colors */
+    --primary: 210 100% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 10% 15%;
+    
+    /* Subtle accents */
+    --muted: 220 15% 88%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 210 100% 48%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Physical borders */
+    --border: 220 13% 85%;
+    --input: 220 13% 85%;
+    --ring: 210 100% 48%;
+    
+    /* Depth system */
+    --radius: 12px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 2px 8px -2px rgba(0, 0, 0, 0.1), 0 4px 12px -4px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px -8px rgba(0, 0, 0, 0.12), 0 12px 32px -12px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 48px -16px rgba(0, 0, 0, 0.14), 0 24px 64px -24px rgba(0, 0, 0, 0.12);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    --shadow-raised: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    /* Material texture */
+    --texture-subtle: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.02) 100%);
+    --surface-1: 0 0% 98%;
+    --surface-2: 0 0% 96%;
+    --surface-3: 220 15% 94%;
 
     /* Chart Colors */
     --chart-1: 217 10% 64%;
@@ -96,26 +121,33 @@
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 217 32% 17%;
-    --card-foreground: 210 40% 98%;
-    --popover: 215 24% 26%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 212 26% 83%;
-    --primary-variant: 340 75% 68%;
-    --primary-foreground: 228 84% 4%;
-    --secondary: 215 19% 34%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 215 16% 46%;
-    --muted-foreground: 210 40% 98%;
-    --accent: 228 84% 4%;
-    --accent-foreground: 215 20% 65%;
+    --background: 220 15% 12%;
+    --foreground: 220 10% 95%;
+    
+    --card: 220 15% 16%;
+    --card-foreground: 220 10% 95%;
+    --popover: 220 15% 18%;
+    --popover-foreground: 220 10% 95%;
+    
+    --primary: 210 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 22%;
+    --secondary-foreground: 220 10% 95%;
+    
+    --muted: 220 15% 28%;
+    --muted-foreground: 220 10% 65%;
+    --accent: 210 100% 55%;
+    --accent-foreground: 0 0% 100%;
+    
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 215 19% 34%;
-    --input: 215 19% 34%;
-    --ring: 212 26% 83%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 28%;
+    --input: 220 13% 28%;
+    --ring: 210 100% 55%;
+    
+    --surface-1: 220 15% 14%;
+    --surface-2: 220 15% 18%;
+    --surface-3: 220 15% 22%;
 
     /* Chart Colors */
     --chart-1: 215 12% 83%;
@@ -155,33 +187,43 @@
 }
 
 @layer utilities {
-  /* Gradients */
-  .gradient-primary {
-    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-variant)), hsl(var(--primary)));
+  /* Skeuomorphic Surfaces */
+  .surface-raised {
+    box-shadow: var(--shadow-raised);
+    background: var(--texture-subtle), hsl(var(--card));
+    border: 1px solid hsl(var(--border));
   }
-
-  .gradient-text {
-    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-variant)), hsl(var(--primary)));
-    @apply bg-clip-text text-transparent;
+  
+  .surface-pressed {
+    box-shadow: var(--shadow-inner);
+    background: hsl(var(--surface-2));
   }
-
-  /* Shadows */
-  .shadow-soft {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+  .surface-float {
+    box-shadow: var(--shadow-lg);
+    background: var(--texture-subtle), hsl(var(--card));
   }
-
-  .shadow-elegant {
-    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.08);
+  
+  /* Material Buttons */
+  .btn-material {
+    @apply relative overflow-hidden transition-all duration-200;
+    box-shadow: var(--shadow-md);
   }
-
-  /* Interactive States */
-  .hover-lift {
-    @apply transition-all duration-300;
+  
+  .btn-material:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
   }
-
-  .hover-lift:hover {
-    @apply -translate-y-1 shadow-elegant;
+  
+  .btn-material:active {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(0);
   }
+  
+  /* Depth Layers */
+  .layer-1 { background: hsl(var(--surface-1)); }
+  .layer-2 { background: hsl(var(--surface-2)); }
+  .layer-3 { background: hsl(var(--surface-3)); }
 
   /* Animations */
   .animate-gradient {
@@ -261,7 +303,8 @@
 
   /* Card Variants */
   .glass-card {
-    @apply bg-card/80 backdrop-blur-sm border border-border rounded-2xl shadow-soft;
+    @apply bg-card/80 backdrop-blur-sm border border-border rounded-2xl;
+    box-shadow: var(--shadow-sm);
   }
 
   /* Text Utilities */
