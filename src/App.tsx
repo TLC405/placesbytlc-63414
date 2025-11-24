@@ -11,7 +11,7 @@ import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
-import UnifiedDashboard from "./pages/UnifiedDashboard";
+import PremiumDashboard from "./pages/PremiumDashboard";
 import NotFound from "./pages/NotFound";
 
 // Lazy load quiz pages and special features
@@ -57,7 +57,7 @@ const AppRoutes = () => {
     }>
       <Routes>
         {/* Unified Dashboard - All Features on One Page */}
-        <Route path="/" element={<UnifiedDashboard />} />
+        <Route path="/" element={<PremiumDashboard />} />
         <Route path="/cartoonifier" element={<CartoonifierNew />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/hacker" element={<HackerScreen />} />
