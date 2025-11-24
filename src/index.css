@@ -8,52 +8,52 @@
 
 @layer base {
   :root {
-    /* Skeuomorphic 2.0 Design System */
-    --background: 220 15% 96%;
-    --foreground: 220 10% 15%;
+    /* Premium Skeuomorphic Design System - Elegant & Refined */
+    --background: 30 25% 96%;
+    --foreground: 25 15% 20%;
     
-    /* Elevated surfaces with depth */
+    /* Elevated surfaces with physical depth */
     --card: 0 0% 100%;
-    --card-foreground: 220 10% 15%;
+    --card-foreground: 25 15% 20%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 10% 15%;
+    --popover-foreground: 25 15% 20%;
     
-    /* Material-inspired colors */
-    --primary: 210 100% 48%;
+    /* Rich, sophisticated colors */
+    --primary: 220 18% 32%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 10% 15%;
+    --primary-glow: 220 18% 42%;
+    --secondary: 35 20% 88%;
+    --secondary-foreground: 25 15% 20%;
     
-    /* Subtle accents */
-    --muted: 220 15% 88%;
-    --muted-foreground: 220 10% 45%;
-    --accent: 210 100% 48%;
+    /* Refined neutrals */
+    --muted: 30 15% 92%;
+    --muted-foreground: 25 10% 50%;
+    --accent: 25 30% 45%;
     --accent-foreground: 0 0% 100%;
     
-    --destructive: 0 84% 60%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --success: 142 76% 36%;
+    --success: 145 55% 42%;
     --success-foreground: 0 0% 100%;
     
-    /* Physical borders */
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --ring: 210 100% 48%;
+    /* Tactile borders */
+    --border: 30 12% 88%;
+    --input: 30 12% 88%;
+    --ring: 220 18% 32%;
     
-    /* Depth system */
-    --radius: 12px;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 2px 8px -2px rgba(0, 0, 0, 0.1), 0 4px 12px -4px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 24px -8px rgba(0, 0, 0, 0.12), 0 12px 32px -12px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 16px 48px -16px rgba(0, 0, 0, 0.14), 0 24px 64px -24px rgba(0, 0, 0, 0.12);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-    --shadow-raised: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* Premium depth system */
+    --radius: 16px;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 3px 12px -2px rgba(0, 0, 0, 0.12), 0 6px 20px -4px rgba(0, 0, 0, 0.10);
+    --shadow-lg: 0 10px 32px -8px rgba(0, 0, 0, 0.14), 0 16px 48px -12px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 64px -16px rgba(0, 0, 0, 0.16), 0 32px 96px -24px rgba(0, 0, 0, 0.14);
+    --shadow-inner: inset 0 2px 6px 0 rgba(0, 0, 0, 0.08);
+    --shadow-raised: 0 6px 10px -2px rgba(0, 0, 0, 0.12), 0 3px 6px -2px rgba(0, 0, 0, 0.08);
     
-    /* Material texture */
-    --texture-subtle: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.02) 100%);
-    --surface-1: 0 0% 98%;
-    --surface-2: 0 0% 96%;
-    --surface-3: 220 15% 94%;
+    /* Luxe material surfaces */
+    --surface-1: 0 0% 99%;
+    --surface-2: 30 20% 97%;
+    --surface-3: 30 18% 95%;
 
     /* Chart Colors */
     --chart-1: 217 10% 64%;
@@ -86,68 +86,69 @@
     --spacing: 0.25rem;
   }
 
-  /* ROMANCE MODE (Default) - Soft pink and romantic */
+  /* ROMANCE MODE - Refined rose gold and warm elegance */
   [data-theme="romance"] {
-    --primary: 336 72 153;
-    --accent: 244 63 94;
+    --primary: 340 45% 45%;
+    --accent: 15 35% 55%;
     --border-radius: 1.5rem;
   }
 
-  /* MAN MODE - Tactical CoD style with military green */
+  /* MAN MODE - Executive leather and polished wood */
   [data-theme="man-mode"] {
-    --background: 10 10 10;
-    --foreground: 34 197 94;
-    --primary: 249 115 22;
-    --accent: 34 197 94;
-    --border-radius: 0.25rem;
-  }
-
-  /* CYBERPUNK MODE - Neon cyan and purple */
-  [data-theme="cyberpunk"] {
-    --background: 2 6 23;
-    --foreground: 6 182 212;
-    --primary: 168 85 247;
-    --accent: 236 72 153;
+    --background: 25 12% 18%;
+    --foreground: 30 10% 88%;
+    --primary: 28 40% 35%;
+    --accent: 25 30% 45%;
     --border-radius: 0.5rem;
   }
 
-  /* NATURE MODE - Earth tones and organic */
+  /* MINIMALIST MODE - Pure architectural precision */
+  [data-theme="cyberpunk"] {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 12%;
+    --primary: 0 0% 20%;
+    --accent: 0 0% 40%;
+    --border-radius: 0.25rem;
+  }
+
+  /* NATURE MODE - Organic luxury with natural materials */
   [data-theme="nature"] {
-    --background: 249 246 238;
-    --foreground: 92 64 14;
-    --primary: 22 163 74;
-    --accent: 14 165 233;
-    --border-radius: 1rem;
+    --background: 40 30% 96%;
+    --foreground: 25 25% 22%;
+    --primary: 155 30% 38%;
+    --accent: 35 35% 48%;
+    --border-radius: 1.25rem;
   }
 
   .dark {
-    --background: 220 15% 12%;
-    --foreground: 220 10% 95%;
+    --background: 25 12% 14%;
+    --foreground: 30 10% 92%;
     
-    --card: 220 15% 16%;
-    --card-foreground: 220 10% 95%;
-    --popover: 220 15% 18%;
-    --popover-foreground: 220 10% 95%;
+    --card: 25 12% 18%;
+    --card-foreground: 30 10% 92%;
+    --popover: 25 12% 20%;
+    --popover-foreground: 30 10% 92%;
     
-    --primary: 210 100% 55%;
+    --primary: 220 22% 48%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 22%;
-    --secondary-foreground: 220 10% 95%;
+    --primary-glow: 220 22% 58%;
+    --secondary: 25 12% 24%;
+    --secondary-foreground: 30 10% 92%;
     
-    --muted: 220 15% 28%;
-    --muted-foreground: 220 10% 65%;
-    --accent: 210 100% 55%;
+    --muted: 25 12% 28%;
+    --muted-foreground: 30 8% 65%;
+    --accent: 30 25% 55%;
     --accent-foreground: 0 0% 100%;
     
-    --destructive: 0 84% 60%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 28%;
-    --input: 220 13% 28%;
-    --ring: 210 100% 55%;
+    --border: 25 10% 28%;
+    --input: 25 10% 28%;
+    --ring: 220 22% 48%;
     
-    --surface-1: 220 15% 14%;
-    --surface-2: 220 15% 18%;
-    --surface-3: 220 15% 22%;
+    --surface-1: 25 12% 16%;
+    --surface-2: 25 12% 20%;
+    --surface-3: 25 12% 24%;
 
     /* Chart Colors */
     --chart-1: 215 12% 83%;
@@ -286,15 +287,13 @@
   /* Form Elements */
   .pill {
     @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full
-           border-2 border-primary/20 backdrop-blur-sm
+           border-2 border-border backdrop-blur-sm
            font-medium text-sm text-foreground
            transition-all duration-300
-           hover:shadow-elegant hover:scale-105 hover:border-primary/40
-           active:scale-95;
-    background: linear-gradient(to right, 
-      hsl(var(--primary) / 0.1), 
-      hsl(var(--primary-variant) / 0.1)
-    );
+           hover:shadow-md hover:scale-[1.02] hover:border-primary/60
+           active:scale-[0.98];
+    background: hsl(var(--card));
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-pill {
@@ -339,7 +338,7 @@
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(to right, transparent 0%, rgba(236, 72, 153, 0.1) 50%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, hsl(var(--muted) / 0.3) 50%, transparent 100%);
   background-size: 1000px 100%;
 }
 
@@ -420,46 +419,31 @@
     @apply bg-primary/40 rounded-full hover:bg-primary/60;
   }
 
-  /* Cyberpunk Animations */
-  @keyframes glitch {
+  /* Premium subtle animations */
+  @keyframes float-gentle {
     0%, 100% { 
-      text-shadow: 2px 2px #FF10F0, -2px -2px #00F0FF;
-      transform: translate(0);
-    }
-    25% { 
-      text-shadow: -2px -2px #FF10F0, 2px 2px #00F0FF;
-      transform: translate(-2px, 2px);
+      transform: translateY(0);
     }
     50% { 
-      text-shadow: 2px -2px #00F0FF, -2px 2px #FF10F0;
-      transform: translate(2px, -2px);
-    }
-    75% { 
-      text-shadow: -2px 2px #FF10F0, 2px -2px #00F0FF;
-      transform: translate(-2px, -2px);
+      transform: translateY(-4px);
     }
   }
 
-  @keyframes scan {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+  @keyframes pulse-elegant {
+    0%, 100% { 
+      opacity: 1;
+    }
+    50% { 
+      opacity: 0.85;
+    }
   }
 
-  @keyframes glow {
-    0%, 100% { text-shadow: 0 0 20px rgba(255, 16, 240, 0.5); }
-    50% { text-shadow: 0 0 40px rgba(255, 16, 240, 0.8), 0 0 60px rgba(0, 240, 255, 0.6); }
+  .animate-float-gentle {
+    animation: float-gentle 4s ease-in-out infinite;
   }
 
-  .glitch-text:hover {
-    animation: glitch 0.3s infinite;
-  }
-
-  .animate-scan {
-    animation: scan 8s linear infinite;
-  }
-
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite;
+  .animate-pulse-elegant {
+    animation: pulse-elegant 3s ease-in-out infinite;
   }
 }
 
