@@ -29,7 +29,6 @@ export default function UnifiedDashboard() {
     { id: "period-tracker", icon: Calendar, title: "Period Tracker", description: "Track cycles for better planning" },
     { id: "quizzes", icon: Brain, title: "Relationship Quizzes", description: "Love language, MBTI, compatibility" },
     { id: "gamification", icon: Trophy, title: "Gamification", description: "Earn points and achievements" },
-    { id: "settings", icon: Settings, title: "Settings", description: "Customize your experience" },
   ];
 
   const filteredFeatures = features.filter(f => 
@@ -117,7 +116,7 @@ export default function UnifiedDashboard() {
               </div>
             </div>
             <Button 
-              onClick={downloadAllFiles}
+              onClick={() => downloadSection('complete')}
               className="btn-material gap-2"
               variant="outline"
             >
