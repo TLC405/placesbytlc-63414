@@ -3,9 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Eye, EyeOff, Terminal, Zap } from "lucide-react";
+import { Eye, EyeOff, LogIn, UserPlus, ArrowLeft } from "lucide-react";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -29,8 +30,8 @@ export default function Auth() {
         if (error) throw error;
 
         if (data.user) {
-          toast.success("🚀 Access Granted", {
-            description: "Welcome back to the system",
+          toast.success("Welcome back!", {
+            description: "You've been signed in successfully",
           });
           navigate("/");
         }
@@ -46,14 +47,14 @@ export default function Auth() {
         if (error) throw error;
 
         if (data.user) {
-          toast.success("✅ Account Created", {
-            description: "You can now access the system",
+          toast.success("Account created", {
+            description: "You can now access the app",
           });
           navigate("/");
         }
       }
     } catch (error: any) {
-      toast.error("Authentication Failed", {
+      toast.error("Authentication failed", {
         description: error.message || "Please try again",
       });
     } finally {
@@ -62,108 +63,101 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
-      
-      <Card className="w-full max-w-md bg-card/80 backdrop-blur-xl border-primary/20 shadow-2xl relative z-10">
-        <div className="p-8 space-y-6">
-          {/* Header */}
-          <div className="text-center space-y-2">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Terminal className="w-8 h-8 text-primary animate-pulse" />
-              <Zap className="w-6 h-6 text-yellow-500" />
-            </div>
-            <h1 className="text-3xl font-black text-foreground tracking-tight">
-              {isLogin ? "SYSTEM ACCESS" : "CREATE ACCOUNT"}
-            </h1>
-            <p className="text-sm text-muted-foreground font-mono">
-              {isLogin ? "Enter credentials to continue" : "Initialize new user profile"}
-            </p>
-          </div>
-
-          {/* Form */}
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <Card className="w-full max-w-md surface-raised shadow-xl">
+        <CardHeader className="text-center pb-2">
+          <CardTitle className="text-2xl font-serif font-bold tracking-tight">
+            {isLogin ? "Welcome Back" : "Create Account"}
+          </CardTitle>
+          <CardDescription>
+            {isLogin ? "Sign in to access your dashboard" : "Get started with Places by TLC"}
+          </CardDescription>
+        </CardHeader>
+        
+        <CardContent className="space-y-6 pt-4">
           <form onSubmit={handleAuth} className="space-y-4">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                Email Address
-              </label>
+              <Label htmlFor="email">Email</Label>
               <Input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="user@system.dev"
+                placeholder="you@example.com"
                 required
-                className="bg-background/50 border-primary/20 focus:border-primary"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                Password
-              </label>
+              <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
+                  id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="bg-background/50 border-primary/20 focus:border-primary pr-10"
+                  className="pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-bold shadow-lg"
-            >
+            <Button type="submit" disabled={loading} className="w-full">
               {loading ? (
                 <span className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
                   Processing...
                 </span>
               ) : isLogin ? (
-                "LOGIN"
+                <>
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Sign In
+                </>
               ) : (
-                "SIGN UP"
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Create Account
+                </>
               )}
             </Button>
           </form>
 
-          {/* Toggle */}
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono"
-            >
-              {isLogin ? (
-                <>
-                  Need an account? <span className="text-primary font-bold">Sign up</span>
-                </>
-              ) : (
-                <>
-                  Already registered? <span className="text-primary font-bold">Login</span>
-                </>
-              )}
-            </button>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">or</span>
+            </div>
           </div>
 
-          {/* System Info */}
-          <div className="pt-4 border-t border-border/50">
-            <p className="text-xs text-center text-muted-foreground font-mono">
-              🔒 Secure Connection • Protected by TLC Systems
-            </p>
-          </div>
-        </div>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setIsLogin(!isLogin)}
+            className="w-full"
+          >
+            {isLogin ? "Need an account? Sign up" : "Already have an account? Sign in"}
+          </Button>
+
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => navigate("/")}
+            className="w-full text-muted-foreground"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Dashboard
+          </Button>
+        </CardContent>
       </Card>
     </div>
   );

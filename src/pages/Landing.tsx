@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { Heart, LogIn, UserPlus, Terminal, Zap } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { LogIn, UserPlus, MapPin, Heart, Sparkles, ArrowRight } from "lucide-react";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -22,10 +23,10 @@ export default function Landing() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       
-      toast.success("✨ ACCESS GRANTED");
+      toast.success("Welcome back!");
       navigate("/");
     } catch (error: any) {
-      toast.error(error.message || "ACCESS DENIED");
+      toast.error(error.message || "Sign in failed");
     } finally {
       setIsLoading(false);
     }
@@ -45,225 +46,194 @@ export default function Landing() {
       });
       if (error) throw error;
       
-      toast.success("✨ ACCOUNT CREATED - CHECK EMAIL");
+      toast.success("Account created successfully");
       setEmail("");
       setPassword("");
     } catch (error: any) {
-      toast.error(error.message || "REGISTRATION FAILED");
+      toast.error(error.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-pink-900 to-cyan-900">
-      {/* Cyberpunk grid background */}
-      <div 
-        className="fixed inset-0 opacity-20 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(0deg, transparent 24%, rgba(255, 16, 240, 0.05) 25%, rgba(255, 16, 240, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.05) 75%, rgba(0, 240, 255, 0.05) 76%, transparent 77%, transparent),
-            linear-gradient(90deg, transparent 24%, rgba(255, 16, 240, 0.05) 25%, rgba(255, 16, 240, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 240, 255, 0.05) 75%, rgba(0, 240, 255, 0.05) 76%, transparent 77%, transparent)
-          `,
-          backgroundSize: '50px 50px',
-        }}
-      />
-      
-      {/* Animated scanline */}
-      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-pink-500/10 to-transparent pointer-events-none animate-scan" />
-
-      {/* Neon glow accents */}
-      <div className="fixed top-0 right-0 w-96 h-96 bg-pink-500/30 rounded-full blur-[120px] pointer-events-none animate-pulse" />
-      <div className="fixed bottom-0 left-0 w-96 h-96 bg-cyan-500/30 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDelay: "1s" }} />
-
-      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
-        {/* Header */}
-        <header className="text-center mb-16 space-y-8">
-          <div className="inline-block relative">
-            <div className="w-32 h-32 mx-auto mb-8 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-cyan-500 rounded-2xl opacity-50 blur-2xl animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-[0_0_60px_rgba(255,16,240,0.8)] glitch-text">
-                <Terminal className="w-16 h-16 text-white" />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <h1 className="text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 glitch-text animate-glow">
-              PLACES_BY_TLC
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="surface-raised border-b">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-serif font-bold text-foreground tracking-tight">
+              Places by TLC
             </h1>
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
-              <p className="text-cyan-300 font-mono text-xl tracking-widest">&gt; SYSTEM_ONLINE</p>
-              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-            </div>
-            <p className="text-pink-200/80 text-lg max-w-2xl mx-auto font-mono">
-              &gt; date_discovery_protocol.exe
-            </p>
+            <Button variant="outline" onClick={() => navigate("/")}>
+              <ArrowRight className="mr-2 h-4 w-4" />
+              Go to App
+            </Button>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Auth Terminal */}
-        <Card className="max-w-2xl mx-auto mb-12 bg-black/80 backdrop-blur-xl border-2 border-pink-500/50 shadow-[0_0_50px_rgba(255,16,240,0.4)]">
-          <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="w-full bg-black/60 border-b-2 border-pink-500/30 rounded-none">
-              <TabsTrigger 
-                value="signin" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-purple-500/20 data-[state=active]:text-pink-300 font-mono uppercase tracking-wider"
-              >
-                <LogIn className="w-4 h-4 mr-2" />
-                SIGN_IN
-              </TabsTrigger>
-              <TabsTrigger 
-                value="signup" 
-                className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-cyan-300 font-mono uppercase tracking-wider"
-              >
-                <UserPlus className="w-4 h-4 mr-2" />
-                SIGN_UP
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="signin" className="p-8 space-y-6">
-              <div className="text-center mb-4">
-                <p className="text-pink-300 font-mono text-sm">&gt; AUTHENTICATE_USER</p>
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-16 max-w-6xl">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Hero Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-serif font-bold text-foreground tracking-tight leading-tight">
+                Discover Perfect
+                <span className="text-primary block">Date Spots</span>
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
+                Your premium relationship management suite. Find amazing places, track meaningful moments, and strengthen your connection.
+              </p>
+            </div>
+            
+            {/* Feature Pills */}
+            <div className="flex flex-wrap gap-3">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                <MapPin className="h-4 w-4" />
+                Place Discovery
               </div>
-              <form onSubmit={handleSignIn} className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider">
-                    &gt; EMAIL_ADDRESS
-                  </label>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="user@tlc.system"
-                    required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-mono text-cyan-300 uppercase tracking-wider">
-                    &gt; PASSWORD
-                  </label>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                    className="h-12 bg-black/60 border-2 border-pink-500/30 text-pink-200 font-mono focus:border-pink-400 focus:shadow-[0_0_20px_rgba(255,16,240,0.3)]"
-                  />
-                </div>
-                <Button 
-                  type="submit" 
-                  disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(255,16,240,0.5)] hover:shadow-[0_0_40px_rgba(255,16,240,0.7)] transition-all uppercase tracking-wider"
-                >
-                  {isLoading ? "AUTHENTICATING..." : <><Zap className="w-5 h-5 mr-2" />ACCESS_SYSTEM</>}
-                </Button>
-              </form>
-            </TabsContent>
-
-            <TabsContent value="signup" className="p-8 space-y-6">
-              <div className="text-center mb-4">
-                <p className="text-cyan-300 font-mono text-sm">&gt; CREATE_NEW_USER</p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium">
+                <Heart className="h-4 w-4" />
+                Relationship Quizzes
               </div>
-              <form onSubmit={handleSignUp} className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider">
-                    &gt; EMAIL_ADDRESS
-                  </label>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="newuser@tlc.system"
-                    required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-mono text-pink-300 uppercase tracking-wider">
-                    &gt; PASSWORD
-                  </label>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                    className="h-12 bg-black/60 border-2 border-cyan-500/30 text-cyan-200 font-mono focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-                  />
-                </div>
-                <Button 
-                  type="submit" 
-                  disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-mono font-bold text-lg shadow-[0_0_30px_rgba(0,240,255,0.5)] hover:shadow-[0_0_40px_rgba(0,240,255,0.7)] transition-all uppercase tracking-wider"
-                >
-                  {isLoading ? "CREATING_ACCOUNT..." : <><UserPlus className="w-5 h-5 mr-2" />REGISTER_USER</>}
-                </Button>
-              </form>
-            </TabsContent>
-          </Tabs>
-        </Card>
-
-        {/* Feature Cards */}
-        <div className="grid sm:grid-cols-2 gap-8 mb-12">
-          <Card
-            className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-pink-500/50 hover:border-pink-400 transition-all duration-500 cursor-pointer shadow-[0_0_30px_rgba(255,16,240,0.2)] hover:shadow-[0_0_50px_rgba(255,16,240,0.4)] hover:scale-105"
-            onClick={() => navigate("/")}
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-purple-500" />
-            <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-[0_0_30px_rgba(255,16,240,0.6)] group-hover:scale-110 transition-transform">
-                <span className="text-4xl">📍</span>
-              </div>
-              <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2 font-mono">PLACES_MODULE</h3>
-                <p className="text-pink-200/70 font-mono text-sm">&gt; discover_date_locations.exe</p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded text-xs font-mono text-pink-300">SEARCH</span>
-                <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded text-xs font-mono text-purple-300">DISCOVERY</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-success/10 text-success text-sm font-medium">
+                <Sparkles className="h-4 w-4" />
+                AI Recommendations
               </div>
             </div>
-          </Card>
+          </div>
 
-          <Card
-            className="group relative overflow-hidden bg-black/60 backdrop-blur-xl border-2 border-cyan-500/50 hover:border-cyan-400 transition-all duration-500 cursor-pointer shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:shadow-[0_0_50px_rgba(0,240,255,0.4)] hover:scale-105"
-            onClick={() => navigate("/quizzes")}
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-500" />
-            <div className="p-8 space-y-4">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.6)] group-hover:scale-110 transition-transform">
-                <span className="text-4xl">💝</span>
-              </div>
-              <div>
-                <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2 font-mono">QUIZ_ENGINE</h3>
-                <p className="text-cyan-200/70 font-mono text-sm">&gt; personality_analysis.sys</p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-xs font-mono text-cyan-300">MBTI</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded text-xs font-mono text-blue-300">LOVE_LANG</span>
-              </div>
-            </div>
+          {/* Right: Auth Card */}
+          <Card className="surface-raised shadow-xl">
+            <Tabs defaultValue="signin" className="w-full">
+              <CardHeader className="pb-4">
+                <TabsList className="grid grid-cols-2 w-full">
+                  <TabsTrigger value="signin">Sign In</TabsTrigger>
+                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                </TabsList>
+              </CardHeader>
+
+              <CardContent className="pt-2">
+                <TabsContent value="signin" className="space-y-4 mt-0">
+                  <form onSubmit={handleSignIn} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-email">Email</Label>
+                      <Input
+                        id="signin-email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-password">Password</Label>
+                      <Input
+                        id="signin-password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        required
+                      />
+                    </div>
+                    <Button type="submit" disabled={isLoading} className="w-full">
+                      {isLoading ? "Signing in..." : (
+                        <>
+                          <LogIn className="mr-2 h-4 w-4" />
+                          Sign In
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </TabsContent>
+
+                <TabsContent value="signup" className="space-y-4 mt-0">
+                  <form onSubmit={handleSignUp} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-email">Email</Label>
+                      <Input
+                        id="signup-email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-password">Password</Label>
+                      <Input
+                        id="signup-password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        required
+                      />
+                    </div>
+                    <Button type="submit" disabled={isLoading} className="w-full">
+                      {isLoading ? "Creating account..." : (
+                        <>
+                          <UserPlus className="mr-2 h-4 w-4" />
+                          Create Account
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </TabsContent>
+              </CardContent>
+            </Tabs>
           </Card>
         </div>
+      </section>
 
-        {/* Footer */}
-        <footer className="text-center space-y-4 font-mono">
-          <div className="flex items-center justify-center gap-4 text-sm text-pink-300/70">
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-              SYSTEM_STATUS: ONLINE
-            </span>
-            <span>•</span>
-            <span>v1.0_CYBERPUNK</span>
-            <span>•</span>
-            <span className="text-cyan-300">TLC_ARMY</span>
-          </div>
-        </footer>
-      </div>
+      {/* Features Grid */}
+      <section className="container mx-auto px-6 py-16 max-w-6xl">
+        <div className="grid md:grid-cols-3 gap-6">
+          <Card className="surface-raised hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <MapPin className="h-6 w-6 text-primary" />
+              </div>
+              <CardTitle className="text-lg">Place Discovery</CardTitle>
+              <CardDescription>Find amazing restaurants, cafes, and date spots near you</CardDescription>
+            </CardHeader>
+          </Card>
+          
+          <Card className="surface-raised hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Heart className="h-6 w-6 text-accent" />
+              </div>
+              <CardTitle className="text-lg">Relationship Quizzes</CardTitle>
+              <CardDescription>Discover your love language and personality compatibility</CardDescription>
+            </CardHeader>
+          </Card>
+          
+          <Card className="surface-raised hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mb-4">
+                <Sparkles className="h-6 w-6 text-success" />
+              </div>
+              <CardTitle className="text-lg">AI Recommendations</CardTitle>
+              <CardDescription>Get personalized suggestions powered by AI</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="surface-raised border-t mt-16">
+        <div className="container mx-auto px-6 py-8">
+          <p className="text-center text-sm text-muted-foreground">
+            Places by TLC for FeeFee · Premium Edition · {new Date().getFullYear()}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
