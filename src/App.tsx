@@ -28,7 +28,7 @@ const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const AIRecommender = lazy(() => import("./pages/AIRecommender"));
 const CoupleMode = lazy(() => import("./pages/CoupleMode"));
 const Gamification = lazy(() => import("./pages/Gamification"));
-const OKCLegendForge = lazy(() => import("./pages/EnhancedOKCLegend"));
+// OKCLegendForge removed - consolidated into premium dashboard
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const CartoonifierNew = lazy(() => import("./pages/CartoonifierNew"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -73,7 +73,7 @@ const AppRoutes = () => {
         <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
         <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
         <Route path="/gamification" element={<AdminOnlyOverlay><Gamification /></AdminOnlyOverlay>} />
-        <Route path="/okc-legend" element={<AdminOnlyOverlay><OKCLegendForge /></AdminOnlyOverlay>} />
+        {/* OKC Legend route removed */}
         <Route path="/boo-mode" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         <Route path="/coming-soon" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         
