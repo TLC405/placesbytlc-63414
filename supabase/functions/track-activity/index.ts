@@ -29,10 +29,10 @@ serve(async (req) => {
           user = authUser;
           console.log('Tracking for authenticated user:', user.id);
         } else {
-          console.log('Auth failed, tracking anonymously:', authError?.message);
+          console.log('Auth failed, tracking anonymously');
         }
       } catch (e) {
-        console.log('Auth exception, tracking anonymously:', e);
+        console.log('Auth exception, tracking anonymously');
       }
     } else {
       console.log('No auth header, tracking anonymously');
@@ -124,9 +124,11 @@ serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Error:', error);
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return new Response(JSON.stringify({ error: message }), {
+    // Log full error details server-side only
+    console.error('Track activity error:', error);
+    
+    // Return generic error to client - never expose internal details
+    return new Response(JSON.stringify({ error: 'An error occurred processing your request' }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

@@ -19,7 +19,7 @@ serve(async (req) => {
     } catch (e) {
       console.error('Failed to parse JSON:', e);
       return new Response(
-        JSON.stringify({ error: 'Invalid JSON in request body' }),
+        JSON.stringify({ error: 'Invalid request format' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -46,7 +46,7 @@ serve(async (req) => {
           user = authUser;
           console.log('Authenticated user:', user.id);
         } else {
-          console.log('Auth check failed, tracking anonymously:', authError?.message);
+          console.log('Auth check failed, tracking anonymously');
         }
       } catch (authException) {
         console.error('Auth exception (tracking anonymously):', authException);
@@ -107,7 +107,10 @@ serve(async (req) => {
 
       if (sessionError) {
         console.error('Session insert error:', sessionError);
-        throw sessionError;
+        return new Response(
+          JSON.stringify({ error: 'Failed to create session' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
       }
 
       // Update or create IP history (only if authenticated)
@@ -221,20 +224,12 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    const errorStack = error instanceof Error ? error.stack : undefined;
+    // Log full error details server-side only
+    console.error('Session tracker error:', error);
     
-    console.error('Session tracker error:', {
-      message: errorMessage,
-      stack: errorStack,
-      error: error
-    });
-    
+    // Return generic error to client - never expose internal details
     return new Response(
-      JSON.stringify({ 
-        error: errorMessage,
-        details: 'Check function logs for more information'
-      }),
+      JSON.stringify({ error: 'An error occurred processing your request' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
