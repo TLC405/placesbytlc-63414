@@ -11,6 +11,17 @@ interface UserRoleData {
   userId: string | null;
 }
 
+/**
+ * SECURITY WARNING: Client-side role checks are for UI/UX purposes ONLY.
+ * 
+ * This hook should NEVER be trusted for security-critical decisions.
+ * All authorization must be enforced server-side via:
+ * - Row Level Security (RLS) policies in the database
+ * - Server-side role verification in Edge Functions
+ * 
+ * Client-side state can be manipulated by attackers. Always verify
+ * permissions server-side before performing sensitive operations.
+ */
 export const useUserRole = (): UserRoleData => {
   const [roles, setRoles] = useState<UserRole[]>([]);
   const [isLoading, setIsLoading] = useState(true);
