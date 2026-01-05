@@ -10,7 +10,8 @@ import { useUserRole } from "@/hooks/useUserRole";
 import { useAuth } from "@/contexts/AuthContext";
 import { 
   Users, BarChart3, Terminal, Activity, Sparkles, Heart,
-  Shield, Zap, Crown, Lock, LogIn, AlertCircle, Code2, Cpu
+  Shield, Zap, Crown, Lock, LogIn, AlertCircle, Code2, Cpu,
+  Home, Settings, ArrowLeft, ChevronRight
 } from "lucide-react";
 import { CommandStation } from "@/components/admin/CommandStation";
 import { UserAnalyticsDashboard } from "@/components/admin/UserAnalyticsDashboard";
@@ -25,6 +26,10 @@ import ComprehensiveExportSystem from "@/components/admin/ComprehensiveExportSys
 import { UpdateLogger } from "@/components/admin/UpdateLogger";
 import { PromptLibrary } from "@/components/admin/PromptLibrary";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import FeliciaModPanel from "@/components/FeliciaModPanel";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -190,30 +195,39 @@ const AdminPanel = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 dark:from-pink-950 dark:via-rose-950 dark:to-purple-950">
-      {/* ROMANTIC ADMIN HEADER */}
-      <div className="border-b border-primary/20 bg-card/80 backdrop-blur-xl sticky top-0 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+    <div className="min-h-screen bg-background">
+      {/* CLEAN ADMIN HEADER */}
+      <div className="border-b bg-card/95 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl gradient-primary p-3 shadow-xl animate-pulse">
-                <Heart className="w-full h-full text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-black gradient-text">
-                  Admin Love Center
-                </h1>
-                <p className="text-sm text-muted-foreground">Manage your romantic empire with care 💖</p>
+            <div className="flex items-center gap-3">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => navigate("/")}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="w-4 h-4 mr-1" />
+                <Home className="w-4 h-4" />
+              </Button>
+              <Separator orientation="vertical" className="h-6" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Shield className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-bold text-foreground">Admin Panel</h1>
+                  <p className="text-xs text-muted-foreground hidden sm:block">Places by TLC</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Badge className="gradient-primary text-white border-0 px-4 py-2">
-                <Shield className="w-4 h-4 mr-2" />
-                {user.email}
-              </Badge>
-              <Badge className="bg-accent text-accent-foreground px-4 py-2">
-                <Crown className="w-4 h-4 mr-2" />
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="hidden sm:flex">
+                <Crown className="w-3 h-3 mr-1" />
                 {roles.map(r => r.toUpperCase()).join(' + ')}
+              </Badge>
+              <Badge variant="secondary" className="text-xs">
+                {user.email}
               </Badge>
             </div>
           </div>
@@ -221,55 +235,58 @@ const AdminPanel = () => {
       </div>
 
       {/* MAIN ADMIN PANEL */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <Tabs defaultValue="overview" className="space-y-8">
-          <TabsList className="glass-card border-2 border-primary/20 p-2 h-auto flex flex-wrap gap-2">
-            <TabsTrigger value="overview" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <BarChart3 className="w-4 h-4 mr-2" />Dashboard
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="bg-muted/50 border p-1 h-auto flex flex-wrap gap-1">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <BarChart3 className="w-4 h-4 mr-1.5" />Dashboard
             </TabsTrigger>
-            <TabsTrigger value="users" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <Users className="w-4 h-4 mr-2" />Users
+            <TabsTrigger value="users" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <Users className="w-4 h-4 mr-1.5" />Users
             </TabsTrigger>
-            <TabsTrigger value="content" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <Heart className="w-4 h-4 mr-2" />Content
+            <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <Settings className="w-4 h-4 mr-1.5" />Settings
             </TabsTrigger>
-            <TabsTrigger value="logs" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <Activity className="w-4 h-4 mr-2" />Activity
+            <TabsTrigger value="logs" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <Activity className="w-4 h-4 mr-1.5" />Activity
             </TabsTrigger>
-            <TabsTrigger value="tools" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <Code2 className="w-4 h-4 mr-2" />Tools
+            <TabsTrigger value="tools" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <Code2 className="w-4 h-4 mr-1.5" />Tools
             </TabsTrigger>
-            <TabsTrigger value="ai" className="data-[state=active]:gradient-primary data-[state=active]:text-white rounded-xl px-4 py-2">
-              <Sparkles className="w-4 h-4 mr-2" />AI
+            <TabsTrigger value="ai" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md px-3 py-1.5 text-sm">
+              <Sparkles className="w-4 h-4 mr-1.5" />AI
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6 animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-              <Card className="glass-card border-2 border-primary/20 hover-lift">
-                <CardHeader>
-                  <CardTitle className="gradient-text flex items-center gap-2">
-                    <Terminal className="w-5 h-5" />Quick Actions
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+              <Card className="border bg-card">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-primary" />
+                    Quick Actions
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CommandStation />
                 </CardContent>
               </Card>
-              <Card className="glass-card border-2 border-primary/20 hover-lift">
-                <CardHeader>
-                  <CardTitle className="gradient-text flex items-center gap-2">
-                    <Zap className="w-5 h-5" />System Status
+              <Card className="border bg-card">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-primary" />
+                    System Status
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <WiFiAnalyzer />
                 </CardContent>
               </Card>
-              <Card className="glass-card border-2 border-primary/20 hover-lift col-span-1 md:col-span-2">
-                <CardHeader>
-                  <CardTitle className="gradient-text flex items-center gap-2">
-                    <Activity className="w-5 h-5" />App Readiness
+              <Card className="border bg-card col-span-1 md:col-span-2">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-primary" />
+                    App Readiness
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -277,10 +294,11 @@ const AdminPanel = () => {
                 </CardContent>
               </Card>
             </div>
-            <Card className="glass-card border-2 border-primary/20">
-              <CardHeader>
-                <CardTitle className="gradient-text flex items-center gap-2">
-                  <Activity className="w-5 h-5" />Recent Updates
+            <Card className="border bg-card">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-primary" />
+                  Recent Updates
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -300,15 +318,35 @@ const AdminPanel = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="content" className="space-y-6 animate-fade-in">
-            <Card className="glass-card border-2 border-primary/20">
-              <CardHeader>
-                <CardTitle className="gradient-text">Content Settings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CupidSettingsPanel />
-              </CardContent>
-            </Card>
+          <TabsContent value="settings" className="space-y-6 animate-fade-in">
+            {/* Organized Settings Sections */}
+            <div className="grid gap-6">
+              {/* Cupid Settings */}
+              <Card className="border bg-card">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Heart className="w-5 h-5 text-primary" />
+                    Cupid Character Settings
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CupidSettingsPanel />
+                </CardContent>
+              </Card>
+
+              {/* Feature Toggles */}
+              <Card className="border bg-card">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-primary" />
+                    Feature Toggles
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <FeliciaModPanel />
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="logs" className="space-y-6 animate-fade-in">

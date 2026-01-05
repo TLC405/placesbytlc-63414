@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ActivityTracker } from "@/components/ActivityTracker";
 import { DetailedCupid } from "@/components/DetailedCupid";
-import { InAppEditor } from "@/components/InAppEditor";
 import { useSessionTracker } from "@/hooks/useSessionTracker";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminOnlyOverlay } from "@/components/AdminOnlyOverlay";
@@ -28,7 +27,7 @@ const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const AIRecommender = lazy(() => import("./pages/AIRecommender"));
 const CoupleMode = lazy(() => import("./pages/CoupleMode"));
 const Gamification = lazy(() => import("./pages/Gamification"));
-// OKCLegendForge removed - consolidated into premium dashboard
+const EnhancedOKCLegend = lazy(() => import("./pages/EnhancedOKCLegend"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const CartoonifierNew = lazy(() => import("./pages/CartoonifierNew"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -73,7 +72,7 @@ const AppRoutes = () => {
         <Route path="/ai-recommender" element={<AdminOnlyOverlay><AIRecommender /></AdminOnlyOverlay>} />
         <Route path="/couple-mode" element={<AdminOnlyOverlay><CoupleMode /></AdminOnlyOverlay>} />
         <Route path="/gamification" element={<AdminOnlyOverlay><Gamification /></AdminOnlyOverlay>} />
-        {/* OKC Legend route removed */}
+        <Route path="/okc-legend" element={<AdminOnlyOverlay><EnhancedOKCLegend /></AdminOnlyOverlay>} />
         <Route path="/boo-mode" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         <Route path="/coming-soon" element={<AdminOnlyOverlay><ComingSoon /></AdminOnlyOverlay>} />
         
@@ -100,7 +99,6 @@ const App = () => {
                   <ActivityTracker />
                   <AuthRedirect />
                   <DetailedCupid />
-                  <InAppEditor />
                   <AppRoutes />
                 </BrowserRouter>
               </TooltipProvider>
